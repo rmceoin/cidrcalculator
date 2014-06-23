@@ -16,7 +16,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  -->
-<resources>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
+
 	<string name="app_name">CIDR Calculator</string>
 	<string name="calculate">Calculate</string>
 	<string name="reset">Reset</string>
@@ -71,9 +74,9 @@
 	
 	<string name="mappedipv4">Mapped IPv4</string>
 	
-	<string name="pref_title_input_keyboard">Input Keyboard</string>
+	<string name="pref_title_input_keyboard" tools:ignore="MissingTranslation">Input Keyboard</string>
 	<string name="pref_summary_input_keyboard">Type of keyboard to use for input.</string>
 	<string name="pref_dialog_title_input_keyboard">Input Keyboard</string>
-    <string name="binary_all_zeros">00000000.00000000.00000000.00000000</string>
-    <string name="slash">/</string>
+    <string name="binary_all_zeros" translatable="false">00000000.00000000.00000000.00000000</string>
+    <string name="slash" translatable="false">/</string>
 </resources>
