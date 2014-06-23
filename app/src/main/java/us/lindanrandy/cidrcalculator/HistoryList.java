@@ -1,6 +1,6 @@
-/* $Id: HistoryList.java 13 2009-04-25 04:09:55Z rmceoin $
+/*
  * 
- * Copyright (C) 2009 Randy McEoin
+ * Copyright (C) 2009-2014 Randy McEoin
  * 
  * Original version came from Notepad sample.
  * 
@@ -76,6 +76,13 @@ public class HistoryList extends ListActivity implements LoaderManager.LoaderCal
 	// If non-null, this is the current filter the user has provided.
 	String mCurFilter;
 
+    // The loader's unique id. Loader ids are specific to the Activity or
+    // Fragment in which they reside.
+    private static final int LOADER_ID = 1;
+
+    // The callbacks through which we will interact with the LoaderManager.
+    private LoaderManager.LoaderCallbacks<Cursor> mCallbacks;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,23 +98,18 @@ public class HistoryList extends ListActivity implements LoaderManager.LoaderCal
 
         // Inform the list we provide context menus for items
         getListView().setOnCreateContextMenuListener(this);
-/*
-        // Perform a managed query. The Activity will handle closing and requerying the cursor
-        // when needed.
-        Cursor cursor = managedQuery(getIntent().getData(), PROJECTION, null, null,
-                History.DEFAULT_SORT_ORDER);
 
-        // Used to map history entries from the database to views
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.historylist_item, cursor,
-                new String[] { History.IP, History.BITS },
-                new int[] { R.id.history_ip, R.id.history_bits });
-*/
         mAdapter = new SimpleCursorAdapter(this,
         		R.layout.historylist_item, null,
                 new String[] { History.IP, History.BITS },
                 new int[] { R.id.history_ip, R.id.history_bits }, 0);
         
         setListAdapter(mAdapter);
+
+        mCallbacks = this;
+
+        LoaderManager lm = getLoaderManager();
+        lm.initLoader(LOADER_ID, null, mCallbacks);
     }
 
     @Override
@@ -190,8 +192,14 @@ public class HistoryList extends ListActivity implements LoaderManager.LoaderCal
         switch (item.getItemId()) {
             case MENU_ITEM_DELETE: {
                 // Delete the IP that the context menu is for
+                Uri data = getIntent().getData();
+                if ((data == null) || (info == null)) {
+                    return true;
+                }
                 Uri historyUri = ContentUris.withAppendedId(getIntent().getData(), info.id);
-                getContentResolver().delete(historyUri, null, null);
+                if (historyUri!=null) {
+                    getContentResolver().delete(historyUri, null, null);
+                }
                 return true;
             }
         }
@@ -200,7 +208,11 @@ public class HistoryList extends ListActivity implements LoaderManager.LoaderCal
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        Uri uri = ContentUris.withAppendedId(getIntent().getData(), id);
+        Uri data = getIntent().getData();
+        if (data == null) {
+            return;
+        }
+        Uri uri = ContentUris.withAppendedId(data, id);
         
         String action = getIntent().getAction();
         if (Intent.ACTION_PICK.equals(action) || Intent.ACTION_GET_CONTENT.equals(action)) {
@@ -235,17 +247,16 @@ public class HistoryList extends ListActivity implements LoaderManager.LoaderCal
 				History.IP + " COLLATE LOCALIZED ASC");
 	}
 
-	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-		// Swap the new cursor in. (The framework will take care of closing the
-		// old cursor once we return.)
-		mAdapter.swapCursor(data);
+	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 
-		// The list should now be shown.
-//		if (isResumed()) {
-//			setListShown(true);
-//		} else {
-//			setListShownNoAnimation(true);
-//		}
+        switch (loader.getId()) {
+            case LOADER_ID:
+                // The asynchronous load is complete and the data
+                // is now available for use. Only now can we associate
+                // the queried Cursor with the SimpleCursorAdapter.
+                mAdapter.swapCursor(cursor);
+                break;
+        }
 	}
 
 	public void onLoaderReset(Loader<Cursor> loader) {

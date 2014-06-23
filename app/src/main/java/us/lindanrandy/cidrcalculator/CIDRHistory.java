@@ -1,7 +1,6 @@
 /*
- * $Id: CIDRHistory.java 13 2009-04-25 04:09:55Z rmceoin $
- *  
- * Copyright (C) 2009 Randy McEoin
+ *
+ * Copyright (C) 2009-2014 Randy McEoin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
