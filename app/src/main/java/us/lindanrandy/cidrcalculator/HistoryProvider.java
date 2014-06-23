@@ -43,7 +43,7 @@ import android.util.Log;
 
 public class HistoryProvider extends ContentProvider {
 
-    private static final String TAG = "History";
+    private static final String TAG = HistoryProvider.class.getSimpleName();
     private static final boolean debug = false;
 
     private static final String DATABASE_NAME = "history.db";

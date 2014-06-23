@@ -1,7 +1,6 @@
 /*
- * $Id: IPv6Calculator.java 36 2012-07-07 23:54:43Z rmceoin@gmail.com $
- *  
- * Copyright (C) 2010 Randy McEoin
+ *
+ * Copyright (C) 2010-2014 Randy McEoin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,14 +38,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-import us.lindanrandy.cidrcalculator.InetAddresses;
-
-//import com.google.common.net.InetAddresses;
-
 public class IPv6Calculator extends Activity {
 	
-	private String TAG="IPv6Calculator";
-	private boolean debug = true;
+    private static final String TAG = IPv6Calculator.class.getSimpleName();
+    private static final boolean debug = true;
 	
 	public final int DEFAULT_BITS=64;
 	private TextView msgIPAddress;
@@ -101,7 +96,7 @@ public class IPv6Calculator extends Activity {
 		reset.setOnClickListener(mResetListener);
 
 		msgIPAddress = (TextView)findViewById(R.id.ipv6address);
-		if (CurrentIPv6 != "")
+		if (!CurrentIPv6.equals(""))
 		{
 			msgIPAddress.setText(CurrentIPv6);
 		}
@@ -151,32 +146,9 @@ public class IPv6Calculator extends Activity {
 		msgInfo.setText("");
 	}
 
-	/** Given an IPv6 address, convert it into a BigInteger.
-	* @param addr
-	* @return the integer representation of the InetAddress
-	*
-	*  @throws IllegalArgumentException if the address is not an IPv6
-	*  address.
-    * from: package org.jboss.netty.handler.ipfilter by 
-    * @author frederic bregier
-	*//*
-	private static BigInteger ipv6AddressToBigInteger(InetAddress addr) {
-		byte[] ipv6;
-		if (addr instanceof Inet4Address) {
-//			ipv6 = getIpV6FromIpV4((Inet4Address) addr);
-			ipv6=new byte[16];
-			ipv6[0]=-1;
-		} else {
-			ipv6 = addr.getAddress();
-		}
-		if (ipv6[0] == -1) {
-			return new BigInteger(1, ipv6);
-		}
-		return new BigInteger(ipv6);
-	}*/
 
 	/** Convert a big integer into an IPv6 address.
-	* @param addr
+	* @param addr integer to convert to string
 	* @return the inetAddress from the integer
 	*
 	* @throws UnknownHostException if the big integer is too large,
@@ -200,9 +172,7 @@ public class IPv6Calculator extends Activity {
 		} else {
 			// copy the address into a 16 byte array, zero-filled.
 			int p = 16 - b.length;
-			for (int i = 0; i < b.length; i ++) {
-				a[p + i] = b[i];
-			}
+            System.arraycopy(b, 0, a, p, b.length);
 		}
 		return InetAddress.getByAddress(a);
 	}
@@ -218,12 +188,13 @@ public class IPv6Calculator extends Activity {
 		TextView msgAddressRange = (TextView)findViewById(R.id.v6address_range);
 		TextView msgMaximumAddresses = (TextView)findViewById(R.id.v6maximum_addresses);
 		TextView msgInfo = (TextView)findViewById(R.id.v6info);
-//    	TextView msgIPBinaryNetwork = (TextView)findViewById(R.id.ipv6_binary_network);
-//    	TextView msgIPBinaryHost = (TextView)findViewById(R.id.ipv6_binary_host);
-//    	TextView msgIPBinaryNetmask = (TextView)findViewById(R.id.ipv6_binary_netmask);
 		Spinner ipv6subnetmasks_spinner = (Spinner)findViewById(R.id.ipv6subnetmasks);
 
-		String ip = msgIPAddress.getText().toString();
+        CharSequence ipAddressText = msgIPAddress.getText();
+        if (ipAddressText == null) {
+            return false;
+        }
+		String ip = ipAddressText.toString();
 
 		try {
 			byte[] addr = InetAddresses.ipStringToBytes(ip);
@@ -238,7 +209,7 @@ public class IPv6Calculator extends Activity {
 //			InetAddress hostAddress = InetAddresses.forString(ip);
 			if (debug) Log.d(TAG,"hostAddress="+hostAddress);
 			
-			if ((hostAddress instanceof Inet6Address) == false) {
+			if (!(hostAddress instanceof Inet6Address)) {
 				if (debug) Log.d(TAG,"not IPv6 address");
 			}
 			
@@ -303,20 +274,20 @@ public class IPv6Calculator extends Activity {
 			if (hostAddress.isMulticastAddress()) {
 				addressInfo=addStringWithSpace(addressInfo,getString(R.string.multicast));
 
-				for (int i=0; i < multicastAddresses.length; i++) {
-					String address=multicastAddresses[i].address;
-					byte[] multiaddr = InetAddresses.ipStringToBytes(address);
+                for (MulticastAddress multicastAddress1 : multicastAddresses) {
+                    String address = multicastAddress1.address;
+                    byte[] multiaddr = InetAddresses.ipStringToBytes(address);
 
-					InetAddress multicastAddress = InetAddress.getByAddress(multiaddr);
-					if (debug) Log.d(TAG,"checking "+hostAddress.getHostAddress()+
-							" against "+multicastAddress.getHostAddress());
-					if (hostAddress.getHostAddress().equals(
-							multicastAddress.getHostAddress())) {
-						addressInfo=addStringWithSpace(addressInfo,
-								getString(multicastAddresses[i].description));
-						break;
-					}
-				}
+                    InetAddress multicastAddress = InetAddress.getByAddress(multiaddr);
+                    if (debug) Log.d(TAG, "checking " + hostAddress.getHostAddress() +
+                            " against " + multicastAddress.getHostAddress());
+                    if (hostAddress.getHostAddress().equals(
+                            multicastAddress.getHostAddress())) {
+                        addressInfo = addStringWithSpace(addressInfo,
+                                getString(multicastAddress1.description));
+                        break;
+                    }
+                }
 			}
 			if (InetAddresses.isMappedIPv4Address(ip)) {
 				addressInfo=addStringWithSpace(addressInfo,getString(R.string.mappedipv4));
@@ -370,7 +341,7 @@ public class IPv6Calculator extends Activity {
 
 	private void doCalculate()
 	{
-		if (updateResults(true) == false)
+		if (!updateResults(true))
 		{
 			TextView msgAddressRange = (TextView)findViewById(R.id.v6address_range);
 
