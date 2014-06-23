@@ -1,0 +1,17 @@
+
+To sign the package::
+
+	jarsigner CIDRCalculator.apk android
+
+To verify the signature::
+
+	jarsigner -verify -verbose -certs CIDRCalculator.apk 
+
+To ignore stuff in SVN::
+
+	svn propedit svn:ignore .
+
+To make the keyword Id update::
+
+	svn propset svn:keywords Id org/openintents/safe/filename.java
+

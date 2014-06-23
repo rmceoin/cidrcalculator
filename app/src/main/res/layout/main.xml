@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+ * $Id: main.xml 32 2012-01-26 23:56:36Z rmceoin@gmail.com $
+ *
+ * Copyright (C) 2008-2011 Randy McEoin
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:scrollbars="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	>
+<TextView
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content" 
+	android:text="@string/ip_address"
+	android:id="@+id/label_ipaddress"/>
+<AutoCompleteTextView android:id="@+id/ipaddress" 
+	android:completionThreshold="5"  
+	android:layout_below="@id/label_ipaddress"
+	android:singleLine="true" 
+	android:digits="0123456789."
+	android:inputType="text"
+	android:imeOptions="actionDone"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content" 
+	android:ems="9"
+	android:hint="@string/put_ip_here"
+	android:scrollHorizontally="true"
+	android:maxLength="15"/>   
+<Spinner android:id="@+id/bitlength" 
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content" 
+	android:layout_toRightOf="@id/ipaddress"
+	android:layout_alignTop="@id/ipaddress"
+	/>    
+<Spinner android:id="@+id/subnetmask" 
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content" 
+	android:layout_below="@id/ipaddress"
+	/>    
+<Button 
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" 
+	android:text="@string/calculate" 
+	android:id="@+id/calculate" 
+	android:layout_below="@id/subnetmask"
+	/>
+<Button 
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" 
+	android:text="@string/reset" 
+	android:id="@+id/reset" 
+	android:layout_toRightOf="@id/calculate"
+	android:layout_alignTop="@id/calculate"
+	/>
+<TextView  
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" 
+	android:layout_below="@id/calculate"
+	android:text="@string/address_range"
+	android:id="@+id/label_address_range"
+	/>
+<TextView  
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" 
+	android:id="@+id/address_range" 
+	android:textSize="20sp"
+	android:layout_below="@id/label_address_range"/>
+<TextView  
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" 
+	android:layout_below="@id/address_range"
+	android:text="@string/maximum_addresses"
+	android:id="@+id/label_maximum_addresses"/>
+<TextView  
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" 
+	android:id="@+id/maximum_addresses" 
+	android:textSize="20sp"
+	android:layout_below="@id/label_maximum_addresses"/>
+<TextView  
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" 
+	android:layout_below="@id/maximum_addresses"
+	android:text="@string/wildcard"
+	android:id="@+id/label_wildcard"/>
+<TextView  
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" 
+	android:id="@+id/wildcard" 
+	android:textSize="20sp"
+	android:layout_below="@id/label_wildcard"/>
+<TextView  
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" 
+	android:layout_below="@id/wildcard"
+	android:text="@string/ip_binary"
+	android:id="@+id/label_ip_binary"/>
+<TextView  
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" 
+	android:id="@+id/ip_binary_network" 
+	android:textSize="16sp"
+	android:background="#602d00"
+	android:layout_below="@id/label_ip_binary"/>
+<TextView  
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content"
+	android:id="@+id/ip_binary_host" 
+	android:textSize="16sp"
+	android:background="#0c003f"
+	android:layout_below="@id/label_ip_binary"
+	android:layout_toRightOf="@id/ip_binary_network"/>
+<TextView  
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" 
+	android:layout_below="@id/ip_binary_network"
+	android:text="@string/ip_binary_netmask"
+	android:id="@+id/label_ip_binary_netmask"/>
+<TextView  
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" 
+	android:id="@+id/ip_binary_netmask" 
+	android:textSize="16sp"
+	android:layout_below="@id/label_ip_binary_netmask"/>
+</RelativeLayout>
+</ScrollView>

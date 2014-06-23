@@ -1,0 +1,20 @@
+1.17 2012-??-?? catches database errors when out of flash memory
+1.16 2012-01-26 Added Ice Cream Sandwich version level.
+1.15 2011-??-?? (not released) Added preference for input type of text or number
+1.14 2011-02-05 Backed out of input type of number 
+1.13 2011-02-04 Changed main IPv4 input type to number and permit moving install location to SD card
+1.12 2011-01-04 Fixed bug with landscape not permitting multiple dots
+1.11 2010-11-11 Added IPv6
+1.10 2010-08-31 Changed inputType to numberDecimal to fix issue with Samsung Galaxy S
+1.9 2009-11-27 Added Chinese translations
+1.8 2009-06-10 Added hex to the converter
+1.7 2009-06-07 Colorized IP binary to show network/host portions.  Added
+		binary netmask.
+1.6 2009-06-04 Corrected input bug
+1.5 2009-06-01 Added a binary/decimal converter
+1.4 2009-04-24 Created History provider which keeps track of IP and BITS
+               history.
+1.3 2009-01-01 Updated OI Update 
+1.2 2008-11-16 OI Update aware update checker
+1.1 2008-11-13
+1.0 2008-10-02 Initial release

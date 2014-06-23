@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+ * $Id: arrays.xml 32 2012-01-26 23:56:36Z rmceoin@gmail.com $
+ *
+ * Copyright (C) 2008 Randy McEoin
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ -->
+<resources>
+    <array name="bitlengths">
+        <item>/1</item>
+        <item>/2</item>
+        <item>/3</item>
+        <item>/4</item>
+        <item>/5</item>
+        <item>/6</item>
+        <item>/7</item>
+        <item>/8</item>
+        <item>/9</item>
+        <item>/10</item>
+        <item>/11</item>
+        <item>/12</item>
+        <item>/13</item>
+        <item>/14</item>
+        <item>/15</item>
+        <item>/16</item>
+        <item>/17</item>
+        <item>/18</item>
+        <item>/19</item>
+        <item>/20</item>
+        <item>/21</item>
+        <item>/22</item>
+        <item>/23</item>
+        <item>/24</item>
+        <item>/25</item>
+        <item>/26</item>
+        <item>/27</item>
+        <item>/28</item>
+        <item>/29</item>
+        <item>/30</item>
+        <item>/31</item>
+        <item>/32</item>
+    </array>
+    <array name="subnets">
+        <item>128.0.0.0</item>
+        <item>192.0.0.0</item>
+        <item>224.0.0.0</item>
+        <item>240.0.0.0</item>
+        <item>248.0.0.0</item>
+        <item>252.0.0.0</item>
+        <item>254.0.0.0</item>
+        <item>255.0.0.0</item>
+        <item>255.128.0.0</item>
+        <item>255.192.0.0</item>
+        <item>255.224.0.0</item>
+        <item>255.240.0.0</item>
+        <item>255.248.0.0</item>
+        <item>255.252.0.0</item>
+        <item>255.254.0.0</item>
+        <item>255.255.0.0</item>
+        <item>255.255.128.0</item>
+        <item>255.255.192.0</item>
+        <item>255.255.224.0</item>
+        <item>255.255.240.0</item>
+        <item>255.255.248.0</item>
+        <item>255.255.252.0</item>
+        <item>255.255.254.0</item>
+        <item>255.255.255.0</item>
+        <item>255.255.255.128</item>
+        <item>255.255.255.192</item>
+        <item>255.255.255.224</item>
+        <item>255.255.255.240</item>
+        <item>255.255.255.248</item>
+        <item>255.255.255.252</item>
+        <item>255.255.255.254</item>
+        <item>255.255.255.255</item>
+    </array>
+	<array name="ipv6subnetmasks">
+		<item>8000:: = /1</item>
+		<item>c000:: = /2</item>
+		<item>e000:: = /3</item>
+		<item>f000:: = /4</item>
+		<item>f800:: = /5</item>
+		<item>fc00:: = /6</item>
+		<item>fe00:: = /7</item>
+		<item>ff00:: = /8</item>
+		<item>ff80:: = /9</item>
+		<item>ffc0:: = /10</item>
+		<item>ffe0:: = /11</item>
+		<item>fff0:: = /12</item>
+		<item>fff8:: = /13</item>
+		<item>fffc:: = /14</item>
+		<item>fffe:: = /15</item>
+		<item>ffff:: = /16</item>
+		
+		<item>ffff:8000:: = /17</item>
+		<item>ffff:c000:: = /18</item>
+		<item>ffff:e000:: = /19</item>
+		<item>ffff:f000:: = /20</item>
+		<item>ffff:f800:: = /21</item>
+		<item>ffff:fc00:: = /22</item>
+		<item>ffff:fe00:: = /23</item>
+		<item>ffff:ff00:: = /24</item>
+		<item>ffff:ff80:: = /25</item>
+		<item>ffff:ffc0:: = /26</item>
+		<item>ffff:ffe0:: = /27</item>
+		<item>ffff:fff0:: = /28</item>
+		<item>ffff:fff8:: = /29</item>
+		<item>ffff:fffc:: = /30</item>
+		<item>ffff:fffe:: = /31</item>
+		<item>ffff:ffff:: = /32</item>
+
+		<item>ffff:ffff:8000:: = /33</item>
+		<item>ffff:ffff:c000:: = /34</item>
+		<item>ffff:ffff:e000:: = /35</item>
+		<item>ffff:ffff:f000:: = /36</item>
+		<item>ffff:ffff:f800:: = /37</item>
+		<item>ffff:ffff:fc00:: = /38</item>
+		<item>ffff:ffff:fe00:: = /39</item>
+		<item>ffff:ffff:ff00:: = /40</item>
+		<item>ffff:ffff:ff80:: = /41</item>
+		<item>ffff:ffff:ffc0:: = /42</item>
+		<item>ffff:ffff:ffe0:: = /43</item>
+		<item>ffff:ffff:fff0:: = /44</item>
+		<item>ffff:ffff:fff8:: = /45</item>
+		<item>ffff:ffff:fffc:: = /46</item>
+		<item>ffff:ffff:fffe:: = /47</item>
+		<item>ffff:ffff:ffff:: = /48</item>
+
+		<item>ffff:ffff:ffff:8000:: = /49</item>
+		<item>ffff:ffff:ffff:c000:: = /50</item>
+		<item>ffff:ffff:ffff:e000:: = /51</item>
+		<item>ffff:ffff:ffff:f000:: = /52</item>
+		<item>ffff:ffff:ffff:f800:: = /53</item>
+		<item>ffff:ffff:ffff:fc00:: = /54</item>
+		<item>ffff:ffff:ffff:fe00:: = /55</item>
+		<item>ffff:ffff:ffff:ff00:: = /56</item>
+		<item>ffff:ffff:ffff:ff80:: = /57</item>
+		<item>ffff:ffff:ffff:ffc0:: = /58</item>
+		<item>ffff:ffff:ffff:ffe0:: = /59</item>
+		<item>ffff:ffff:ffff:fff0:: = /60</item>
+		<item>ffff:ffff:ffff:fff8:: = /61</item>
+		<item>ffff:ffff:ffff:fffc:: = /62</item>
+		<item>ffff:ffff:ffff:fffe:: = /63</item>
+		<item>ffff:ffff:ffff:ffff:: = /64</item>
+
+		<item>ffff:ffff:ffff:ffff:8000:: = /65</item>
+		<item>ffff:ffff:ffff:ffff:c000:: = /66</item>
+		<item>ffff:ffff:ffff:ffff:e000:: = /67</item>
+		<item>ffff:ffff:ffff:ffff:f000:: = /68</item>
+		<item>ffff:ffff:ffff:ffff:f800:: = /69</item>
+		<item>ffff:ffff:ffff:ffff:fc00:: = /70</item>
+		<item>ffff:ffff:ffff:ffff:fe00:: = /71</item>
+		<item>ffff:ffff:ffff:ffff:ff00:: = /72</item>
+		<item>ffff:ffff:ffff:ffff:ff80:: = /73</item>
+		<item>ffff:ffff:ffff:ffff:ffc0:: = /74</item>
+		<item>ffff:ffff:ffff:ffff:ffe0:: = /75</item>
+		<item>ffff:ffff:ffff:ffff:fff0:: = /76</item>
+		<item>ffff:ffff:ffff:ffff:fff8:: = /77</item>
+		<item>ffff:ffff:ffff:ffff:fffc:: = /78</item>
+		<item>ffff:ffff:ffff:ffff:fffe:: = /79</item>
+		<item>ffff:ffff:ffff:ffff:ffff:: = /80</item>
+
+		<item>ffff:ffff:ffff:ffff:ffff:8000:: = /81</item>
+		<item>ffff:ffff:ffff:ffff:ffff:c000:: = /82</item>
+		<item>ffff:ffff:ffff:ffff:ffff:e000:: = /83</item>
+		<item>ffff:ffff:ffff:ffff:ffff:f000:: = /84</item>
+		<item>ffff:ffff:ffff:ffff:ffff:f800:: = /85</item>
+		<item>ffff:ffff:ffff:ffff:ffff:fc00:: = /86</item>
+		<item>ffff:ffff:ffff:ffff:ffff:fe00:: = /87</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ff00:: = /88</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ff80:: = /89</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffc0:: = /90</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffe0:: = /91</item>
+		<item>ffff:ffff:ffff:ffff:ffff:fff0:: = /92</item>
+		<item>ffff:ffff:ffff:ffff:ffff:fff8:: = /93</item>
+		<item>ffff:ffff:ffff:ffff:ffff:fffc:: = /94</item>
+		<item>ffff:ffff:ffff:ffff:ffff:fffe:: = /95</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:: = /96</item>
+
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:8000:: = /97</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:c000:: = /98</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:e000:: = /99</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:f000:: = /100</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:f800:: = /101</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:fc00:: = /102</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:fe00:: = /103</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:ff00:: = /104</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:ff80:: = /105</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:ffc0:: = /106</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:ffe0:: = /107</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:fff0:: = /108</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:fff8:: = /109</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:fffc:: = /110</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:fffe:: = /111</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:ffff:: = /112</item>
+
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:ffff:8000 = /113</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:ffff:c000 = /114</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:ffff:e000 = /115</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:ffff:f000 = /116</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:ffff:f800 = /117</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:ffff:fc00 = /118</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:ffff:fe00 = /119</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:ffff:ff00 = /120</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:ffff:ff80 = /121</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffc0 = /122</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffe0 = /123</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:ffff:fff0 = /124</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:ffff:fff8 = /125</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:ffff:fffc = /126</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:ffff:fffe = /127</item>
+		<item>ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff = /128</item>
+	</array>
+    
+    <string-array name="pref_array_history_entries">
+        <item>10</item>
+        <item>100</item>
+        <item>1000</item>
+    </string-array>
+
+    <string-array name="pref_array_input_keyboard">
+        <item>Number</item>
+        <item>Text</item>
+    </string-array>
+</resources>

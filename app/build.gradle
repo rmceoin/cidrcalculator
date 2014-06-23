@@ -1,0 +1,23 @@
+apply plugin: 'android'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.1.0"
+
+    defaultConfig {
+        applicationId "us.lindanrandy.cidrcalculator"
+        minSdkVersion 11
+        targetSdkVersion 19
+//        compileOptions {
+//            sourceCompatibility JavaVersion.VERSION_1_5
+//            targetCompatibility JavaVersion.VERSION_1_5
+//        }
+    }
+
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}

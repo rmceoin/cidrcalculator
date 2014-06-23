@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ * $Id: converter.xml 31 2011-02-05 03:44:40Z rmceoin $
+ *
+ * Copyright (C) 2009-2011 Randy McEoin
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:scrollbars="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	>
+<TextView
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content" 
+	android:text="@string/ip_decimal"
+	android:id="@+id/label_ipdecimal"/>
+<EditText android:id="@+id/ipaddress" 
+	android:layout_below="@id/label_ipdecimal"
+	android:singleLine="true" 
+	android:digits="0123456789."
+	android:inputType="numberDecimal"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content" 
+	android:ems="9"
+	android:hint="@string/put_ip_here"
+	android:scrollHorizontally="true"
+	android:maxLength="15"/>   
+<Button 
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" 
+	android:text="@string/convert_to_binaryhex" 
+	android:id="@+id/convertdec" 
+	android:layout_toRightOf="@id/ipaddress" 
+	android:layout_below="@id/label_ipdecimal"/>
+
+<TextView
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content" 
+	android:text="@string/ip_binary"
+	android:id="@+id/label_ipbinary"
+	android:layout_below="@id/convertdec"/>
+	/>
+<EditText android:id="@+id/ipbinary" 
+	android:layout_below="@id/label_ipbinary"
+	android:singleLine="true" 
+	android:digits="01."
+	android:inputType="numberDecimal"
+	android:typeface="monospace"
+	android:textSize="14sp"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content" 
+	android:ems="9"
+	android:text="00000000.00000000.00000000.00000000"
+	android:scrollHorizontally="true"
+	android:maxLength="35"/>   
+<Button 
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" 
+	android:text="@string/convert_to_decimalhex" 
+	android:id="@+id/convertbin"
+	android:layout_below="@id/ipbinary"/>
+
+<TextView
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content" 
+	android:text="@string/ip_hex"
+	android:id="@+id/label_iphex"
+	android:layout_below="@id/convertbin"/>
+	/>
+<EditText android:id="@+id/iphex" 
+	android:layout_below="@id/label_iphex"
+	android:singleLine="true" 
+	android:autoText="false"
+	android:typeface="monospace"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content" 
+	android:ems="9"
+	android:scrollHorizontally="true"
+	android:maxLength="11"/>   
+<Button 
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" 
+	android:text="@string/convert_to_decimalbinary" 
+	android:id="@+id/converthex"
+	android:layout_toRightOf="@id/iphex" 
+	android:layout_below="@id/label_iphex"/>
+
+</RelativeLayout>
+</ScrollView>
