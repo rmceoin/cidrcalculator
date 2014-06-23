@@ -51,7 +51,7 @@ import android.widget.SimpleCursorAdapter;
  * provided in the intent if there is one, otherwise defaults to displaying the
  * contents of the {@link HistoryProvider}
  */
-public class HistoryList extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+public class HistoryList extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = "HistoryList";
 
     // Menu item ids
@@ -61,27 +61,23 @@ public class HistoryList extends ListActivity implements LoaderManager.LoaderCal
     /**
      * The columns we are interested in from the database
      */
-    private static final String[] PROJECTION = new String[] {
+    private static final String[] PROJECTION = new String[]{
             History._ID, // 0
             History.IP, // 1
             History.BITS, // 2
     };
 
-    /** The index of the IP column */
+    /**
+     * The index of the IP column
+     */
     private static final int COLUMN_INDEX_IP = 1;
-   
-	// This is the Adapter being used to display the list's data.
-	SimpleCursorAdapter mAdapter;
-	
-	// If non-null, this is the current filter the user has provided.
-	String mCurFilter;
+
+    // This is the Adapter being used to display the list's data.
+    SimpleCursorAdapter mAdapter;
 
     // The loader's unique id. Loader ids are specific to the Activity or
     // Fragment in which they reside.
     private static final int LOADER_ID = 1;
-
-    // The callbacks through which we will interact with the LoaderManager.
-    private LoaderManager.LoaderCallbacks<Cursor> mCallbacks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,13 +96,13 @@ public class HistoryList extends ListActivity implements LoaderManager.LoaderCal
         getListView().setOnCreateContextMenuListener(this);
 
         mAdapter = new SimpleCursorAdapter(this,
-        		R.layout.historylist_item, null,
-                new String[] { History.IP, History.BITS },
-                new int[] { R.id.history_ip, R.id.history_bits }, 0);
-        
+                R.layout.historylist_item, null,
+                new String[]{History.IP, History.BITS},
+                new int[]{R.id.history_ip, R.id.history_bits}, 0);
+
         setListAdapter(mAdapter);
 
-        mCallbacks = this;
+        LoaderManager.LoaderCallbacks<Cursor> mCallbacks = this;
 
         LoaderManager lm = getLoaderManager();
         lm.initLoader(LOADER_ID, null, mCallbacks);
@@ -116,8 +112,8 @@ public class HistoryList extends ListActivity implements LoaderManager.LoaderCal
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-    	menu.add(Menu.NONE, MENU_ITEM_DELETE_ALL , Menu.NONE, R.string.delete_all)
-    		.setIcon(android.R.drawable.ic_menu_delete);
+        menu.add(Menu.NONE, MENU_ITEM_DELETE_ALL, Menu.NONE, R.string.delete_all)
+                .setIcon(android.R.drawable.ic_menu_delete);
 
         // Generate any additional actions that can be performed on the
         // overall list.  In a normal install, there are no additional
@@ -134,24 +130,24 @@ public class HistoryList extends ListActivity implements LoaderManager.LoaderCal
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case MENU_ITEM_DELETE_ALL:
-        	Dialog about = new AlertDialog.Builder(this)
-        	.setIcon(android.R.drawable.ic_delete)
-        	.setTitle(R.string.delete_all)
-        	.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-        		public void onClick(DialogInterface dialog, int whichButton) {
-                    getContentResolver().delete(History.CONTENT_URI, null, null);
-        		}
-        	})
-        	.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-        		public void onClick(DialogInterface dialog, int whichButton) {
-        		}
-        	}) 
-        	.setMessage(R.string.dialog_delete_history_msg)
-        	.create();
-        	about.show();
+            case MENU_ITEM_DELETE_ALL:
+                Dialog about = new AlertDialog.Builder(this)
+                        .setIcon(android.R.drawable.ic_delete)
+                        .setTitle(R.string.delete_all)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                getContentResolver().delete(History.CONTENT_URI, null, null);
+                            }
+                        })
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                            }
+                        })
+                        .setMessage(R.string.dialog_delete_history_msg)
+                        .create();
+                about.show();
 
-        	return true;
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -160,7 +156,7 @@ public class HistoryList extends ListActivity implements LoaderManager.LoaderCal
     public void onCreateContextMenu(ContextMenu menu, View view, ContextMenuInfo menuInfo) {
         AdapterView.AdapterContextMenuInfo info;
         try {
-             info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+            info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         } catch (ClassCastException e) {
             Log.e(TAG, "bad menuInfo", e);
             return;
@@ -178,12 +174,12 @@ public class HistoryList extends ListActivity implements LoaderManager.LoaderCal
         // Add a menu item to delete the note
         menu.add(0, MENU_ITEM_DELETE, 0, R.string.delete);
     }
-        
+
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info;
         try {
-             info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         } catch (ClassCastException e) {
             Log.e(TAG, "bad menuInfo", e);
             return false;
@@ -197,7 +193,7 @@ public class HistoryList extends ListActivity implements LoaderManager.LoaderCal
                     return true;
                 }
                 Uri historyUri = ContentUris.withAppendedId(getIntent().getData(), info.id);
-                if (historyUri!=null) {
+                if (historyUri != null) {
                     getContentResolver().delete(historyUri, null, null);
                 }
                 return true;
@@ -213,7 +209,7 @@ public class HistoryList extends ListActivity implements LoaderManager.LoaderCal
             return;
         }
         Uri uri = ContentUris.withAppendedId(data, id);
-        
+
         String action = getIntent().getAction();
         if (Intent.ACTION_PICK.equals(action) || Intent.ACTION_GET_CONTENT.equals(action)) {
             // The caller is waiting for us to return a note selected by
@@ -223,31 +219,18 @@ public class HistoryList extends ListActivity implements LoaderManager.LoaderCal
         }
     }
 
-	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		// This is called when a new Loader needs to be created. This
-		// sample only has one Loader, so we don't care about the ID.
-		// First, pick the base URI to use depending on whether we are
-		// currently filtering.
-		Uri baseUri;
-		if (mCurFilter != null) {
-//			baseUri = Uri.withAppendedPath(History.CONTENT_FILTER_URI,
-//					Uri.encode(mCurFilter));
-			baseUri = History.CONTENT_URI;
-		} else {
-			baseUri = History.CONTENT_URI;
-		}
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-		// Now create and return a CursorLoader that will take care of
-		// creating a Cursor for the data being displayed.
-//		String select = "((" + Contacts.DISPLAY_NAME + " NOTNULL) AND ("
-//				+ Contacts.HAS_PHONE_NUMBER + "=1) AND ("
-//				+ Contacts.DISPLAY_NAME + " != '' ))";
-		return new CursorLoader(this, baseUri,
-				PROJECTION, null, null,
-				History.IP + " COLLATE LOCALIZED ASC");
-	}
+        Uri baseUri = History.CONTENT_URI;
 
-	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        // Now create and return a CursorLoader that will take care of
+        // creating a Cursor for the data being displayed.
+        return new CursorLoader(this, baseUri,
+                PROJECTION, null, null,
+                History.IP + " COLLATE LOCALIZED ASC");
+    }
+
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 
         switch (loader.getId()) {
             case LOADER_ID:
@@ -257,12 +240,12 @@ public class HistoryList extends ListActivity implements LoaderManager.LoaderCal
                 mAdapter.swapCursor(cursor);
                 break;
         }
-	}
+    }
 
-	public void onLoaderReset(Loader<Cursor> loader) {
-		// This is called when the last Cursor provided to onLoadFinished()
-		// above is about to be closed. We need to make sure we are no
-		// longer using it.
-		mAdapter.swapCursor(null);
-	}
+    public void onLoaderReset(Loader<Cursor> loader) {
+        // This is called when the last Cursor provided to onLoadFinished()
+        // above is about to be closed. We need to make sure we are no
+        // longer using it.
+        mAdapter.swapCursor(null);
+    }
 }
