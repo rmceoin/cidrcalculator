@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+ * $Id: strings.xml 30 2011-01-05 04:05:19Z rmceoin $
+ *
+ * Copyright (C) 2009 Randy McEoin
+ *
+ * Translation by:
+ *   NetDragon Websoft Inc.
+ *   MSN: NDMSN508@ND.COM.CN
+ *   Website: http://www.nd.com.cn
+ *   English website: http://ir.netdragon.us
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ -->
+<resources>
+	<string name="app_name">CIDR 计算器</string>
+	<string name="calculate">计算</string>
+	<string name="reset">重置</string>
+	<string name="err_bad_ip">错误的 IP 格式</string>
+	<string name="err_ip_range">IP 超出范围</string>
+	<string name="address_range">地址范围</string>
+	<string name="maximum_addresses">最大地址</string>
+	<string name="wildcard">通配符</string>
+	<string name="about_dialog_ok">确认</string>
+	<string name="about_dialog_message">CIDR Calculator\nRandy McEoin\nCopyright 2010\n版本 %s</string>
+	<string name="about_dialog_title">关于</string>
+	<string name="version">1.10</string>
+	<string name="history">历史</string>
+	<string name="preferences">首选项</string>
+	<string name="pref_title_history_entries">历史条目</string>
+	<string name="pref_summary_history_entries">在历史中保留多少条目。</string>
+	<string name="pref_dialog_title_history_entries">历史条目</string>
+	<string name="pref_title_autocomplete">自动完成</string>
+	<string name="pref_summary_autocomplete">使用历史来自动完成 IP 地址。</string>
+	<string name="delete_all">全部删除</string>
+	<string name="delete">删除</string>
+	<string name="yes">是</string>
+	<string name="no">否</string>
+	<string name="dialog_delete_history_msg">您确定要删除全部历史么?</string>
+	<string name="converter">转换器</string>
+	<string name="ip_decimal">IP 十进制</string>
+	<string name="ip_binary">IP 二进制</string>
+	<string name="ip_hex">IP 十六进制</string>
+	<string name="ip_binary_netmask">IP 二进制掩码</string>
+	<string name="convert_to_binaryhex">转换为二进制/十六进制</string>
+	<string name="convert_to_decimalhex">转换为十进制/十六进制</string>
+	<string name="convert_to_decimalbinary">转换为十进制/二进制</string>
+	<string name="put_ip_here">这里输入 IP</string>
+	<string name="return_ip">返回 IP</string>
+</resources>

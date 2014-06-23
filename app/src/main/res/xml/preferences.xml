@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+* $Id: preferences.xml 1940 2009-02-14 05:12:48Z rmceoin $
+* 
+* Copyright 2009 Randy McEoin
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*
+-->
+
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+            android:title="@string/preferences">
+
+        <CheckBoxPreference
+                android:title="@string/pref_title_autocomplete"
+                android:summary="@string/pref_summary_autocomplete"
+                android:key="autocomplete"
+            	android:defaultValue="true"/>
+            
+        <ListPreference
+                android:key="history_entries"
+                android:title="@string/pref_title_history_entries"
+                android:summary="@string/pref_summary_history_entries"
+                android:entries="@array/pref_array_history_entries"
+                android:entryValues="@array/pref_array_history_entries"
+                android:dialogTitle="@string/pref_dialog_title_history_entries"
+            	android:defaultValue="100" />    
+
+        <ListPreference
+                android:key="input_keyboard"
+                android:title="@string/pref_title_input_keyboard"
+                android:summary="@string/pref_summary_input_keyboard"
+                android:entries="@array/pref_array_input_keyboard"
+                android:entryValues="@array/pref_array_input_keyboard"
+                android:dialogTitle="@string/pref_dialog_title_input_keyboard"
+            	android:defaultValue="text" />    
+
+    </PreferenceCategory>
+</PreferenceScreen>
