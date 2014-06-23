@@ -8,10 +8,6 @@ android {
         applicationId "us.lindanrandy.cidrcalculator"
         minSdkVersion 11
         targetSdkVersion 19
-//        compileOptions {
-//            sourceCompatibility JavaVersion.VERSION_1_5
-//            targetCompatibility JavaVersion.VERSION_1_5
-//        }
     }
 
     buildTypes {
