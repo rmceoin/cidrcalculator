@@ -15,7 +15,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  -->
-<resources>
+<resources  xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
+
     <array name="bitlengths">
         <item>/1</item>
         <item>/2</item>
@@ -222,7 +224,7 @@
 		<item>ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff = /128</item>
 	</array>
     
-    <string-array name="pref_array_history_entries">
+    <string-array name="pref_array_history_entries" translatable="false">
         <item>10</item>
         <item>100</item>
         <item>1000</item>
