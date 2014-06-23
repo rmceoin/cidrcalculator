@@ -74,4 +74,6 @@
 	<string name="pref_title_input_keyboard">Input Keyboard</string>
 	<string name="pref_summary_input_keyboard">Type of keyboard to use for input.</string>
 	<string name="pref_dialog_title_input_keyboard">Input Keyboard</string>
+    <string name="binary_all_zeros">00000000.00000000.00000000.00000000</string>
+    <string name="slash">/</string>
 </resources>

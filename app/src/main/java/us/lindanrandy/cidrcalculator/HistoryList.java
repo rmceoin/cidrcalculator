@@ -52,7 +52,8 @@ import android.widget.SimpleCursorAdapter;
  * contents of the {@link HistoryProvider}
  */
 public class HistoryList extends ListActivity implements LoaderManager.LoaderCallbacks<Cursor> {
-    private static final String TAG = "HistoryList";
+
+    private static final String TAG = HistoryList.class.getSimpleName();
 
     // Menu item ids
     public static final int MENU_ITEM_DELETE_ALL = Menu.FIRST;

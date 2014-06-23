@@ -32,8 +32,8 @@ import android.widget.Toast;
 
 public class Converter extends Activity {
 
-	private static final String TAG="Converter";
-	private static final boolean debug = false;
+    private static final String TAG = Converter.class.getSimpleName();
+    private static final boolean debug = false;
 
 	public static final String EXTRA_IP="IP";
 	

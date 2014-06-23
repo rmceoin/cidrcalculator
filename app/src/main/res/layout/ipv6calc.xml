@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 
- * $Id: ipv6calc.xml 27 2010-11-12 01:02:12Z rmceoin $
  *
- * Copyright (C) 2010 Randy McEoin
+ * Copyright (C) 2010-2014 Randy McEoin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +22,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical"
 	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
+	android:layout_height="wrap_content"
 	>
 <TextView
 	android:layout_width="fill_parent" 
@@ -35,7 +34,7 @@
 	android:layout_below="@id/label_ipv6address"
 	android:singleLine="true" 
 	android:digits="0123456789abcdef.:"
-	android:inputType="text"
+	android:inputType="textNoSuggestions"
 	android:imeOptions="actionDone"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content" 

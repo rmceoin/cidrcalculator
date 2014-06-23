@@ -220,7 +220,7 @@ public class InetAddresses {
 	      // For IPv4, Java's formatting is good enough.
 	      return ip.getHostAddress();
 	    }
-	    if ((ip instanceof Inet6Address)==false) return null;
+	    if (!(ip instanceof Inet6Address)) return null;
 	    byte[] bytes = ip.getAddress();
 	    int[] hextets = new int[IPV6_PART_COUNT];
 	    for (int i = 0; i < hextets.length; i++) {
