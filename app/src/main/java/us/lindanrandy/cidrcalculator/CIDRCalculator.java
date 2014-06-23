@@ -1,7 +1,6 @@
 /*
- * $Id: CIDRCalculator.java 32 2012-01-26 23:56:36Z rmceoin@gmail.com $
- *  
- * Copyright (C) 2008 Randy McEoin
+ *
+ * Copyright (C) 2008-2014 Randy McEoin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +28,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
@@ -56,21 +56,17 @@ import android.widget.TextView;
 import android.text.InputType;
 import android.util.Log;
 
-import us.lindanrandy.cidrcalculator.R;
-
-
 public class CIDRCalculator extends Activity {
 
-	private String TAG="CIDR";
-	private boolean debug = false;
+	private static final String TAG = CIDRCalculator.class.getSimpleName();
+	private static final boolean debug = false;
 	
 	private TextView msgIPAddress;
 	private String CurrentIP;
 	private int CurrentBits;
 	Animation anim = null;
 	private Uri mUri;
-	private SimpleCursorAdapter adapter2;
-	private static final String[] PROJECTION = new String[] {
+    private static final String[] PROJECTION = new String[] {
 		History._ID, // 0
 		History.IP, // 1
 		History.BITS, // 2
@@ -116,13 +112,7 @@ public class CIDRCalculator extends Activity {
         s2.setOnItemSelectedListener(mSubnetMaskSelectedListener); 
         s1.setSelection(CurrentBits - 1);
         s2.setSelection(CurrentBits - 1);
-/*
-        EditText t1 = (EditText) findViewById(R.id.ipaddress);
-        InputFilter[] ipfilters = new InputFilter[2];
-        ipfilters[0] = new InputFilter.LengthFilter(15);
-        ipfilters[1] = new IPFilter();
-        t1.setFilters(ipfilters);
-*/
+
         Button calculate = (Button)findViewById(R.id.calculate);
         calculate.setOnClickListener(mCalculateListener);
 
@@ -130,35 +120,35 @@ public class CIDRCalculator extends Activity {
         reset.setOnClickListener(mResetListener);
 
     	msgIPAddress = (TextView)findViewById(R.id.ipaddress);
-        if (CurrentIP != "")
+        if (!CurrentIP.equals(""))
         {
         	msgIPAddress.setText(CurrentIP);
         }
         mUri = History.CONTENT_URI;
 
-        adapter2 = new SimpleCursorAdapter(this,
-        		android.R.layout.simple_dropdown_item_1line, null,
-                new String[] { History.IP },
-                new int[] { android.R.id.text1 });
+        SimpleCursorAdapter adapter2 = new SimpleCursorAdapter(this,
+                android.R.layout.simple_dropdown_item_1line, null,
+                new String[]{History.IP},
+                new int[]{android.R.id.text1}, 0);
         adapter2.setCursorToStringConverter(new HistoryCursorConverter());
         adapter2.setFilterQueryProvider(new FilterQueryProvider() {
-        	public Cursor runQuery(CharSequence constraint) {
-        		StringBuilder buffer = null;
-        		String[] args = null;
-        		if (constraint != null) {
-        			buffer = new StringBuilder();
-        			buffer.append("UPPER(");
-        			buffer.append(PROJECTION[1]);
-        			buffer.append(") GLOB ?");
-        			String filter = constraint.toString().toUpperCase() + "*";
-        			args = new String[] { filter };
-        		}
-        		return getContentResolver().query(mUri, PROJECTION,
-       				buffer == null ? null : buffer.toString(),
-       				args, History.DEFAULT_SORT_ORDER);
-        	} 
+            public Cursor runQuery(CharSequence constraint) {
+                StringBuilder buffer = null;
+                String[] args = null;
+                if (constraint != null) {
+                    buffer = new StringBuilder();
+                    buffer.append("UPPER(");
+                    buffer.append(PROJECTION[1]);
+                    buffer.append(") GLOB ?");
+                    String filter = constraint.toString().toUpperCase() + "*";
+                    args = new String[]{filter};
+                }
+                return getContentResolver().query(mUri, PROJECTION,
+                        buffer == null ? null : buffer.toString(),
+                        args, History.DEFAULT_SORT_ORDER);
+            }
         });
-		AutoCompleteTextView ipField = (AutoCompleteTextView) findViewById(R.id.ipaddress);
+		AutoCompleteTextView ipField = (AutoCompleteTextView) msgIPAddress;
 		ipField.setAdapter(adapter2);
 		ipField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 		    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -185,8 +175,7 @@ public class CIDRCalculator extends Activity {
     	{
         	if (debug) Log.d(TAG,"convertToString()");
     		// Return the first column of the database cursor
-    		String aColumnString = theCursor.getString(1);
-    		return aColumnString;
+            return theCursor.getString(1);
     	}
     }
 
@@ -285,11 +274,15 @@ public class CIDRCalculator extends Activity {
     		return true;
     	case ABOUT_MENUID:
 
-    		//    		String version=getString(R.string.version);
     		PackageInfo pi;
             String version = "";
 			try {
-				pi = this.getPackageManager().getPackageInfo(this.getPackageName(), 0);
+                PackageManager pm = this.getPackageManager();
+                String pn = this.getPackageName();
+                if (pm==null) {
+                    return true;
+                }
+				pi = pm.getPackageInfo(pn, 0);
 				version = pi.versionName;
 			} catch (NameNotFoundException e) {
 				e.printStackTrace();
@@ -307,29 +300,9 @@ public class CIDRCalculator extends Activity {
     }
 
     /**
-     * Used to ensure that the IP Address field only consists of
-     * digits and periods. 
-     */
-/*    class IPFilter implements InputFilter {
-    	public CharSequence filter(CharSequence source, int start, int end,
-    			Spanned dest, int dstart, int dend)
-    	{
-    		Pattern pattern = Pattern.compile("[0-9\\.]+");
-    		Matcher matcher = pattern.matcher(source);
-    		if (matcher.matches())
-    		{
-    			return null;
-    		}else
-    		{
-    			return "";
-    		}
-    	}
-    }
-*/
-    /**
      * Convert a 32-bit unsigned IP to string format.
      * 
-     * @param in
+     * @param in Integer to convert
      * @return String version of IP
      */
     private String IntIPToString(int in)
@@ -338,9 +311,8 @@ public class CIDRCalculator extends Activity {
     	int quad2 = (in & 0x00FF0000) >> 16;
     	int quad3 = (in & 0x0000FF00) >> 8;
     	int quad4 = (in & 0x000000FF);
-    	
-    	String address = String.format("%d.%d.%d.%d",quad1,quad2,quad3,quad4);
-    	return address;
+
+        return String.format("%d.%d.%d.%d",quad1,quad2,quad3,quad4);
     }
 
     /**
@@ -422,27 +394,23 @@ public class CIDRCalculator extends Activity {
     		throw new Exception();
     	}
     	int ip32bit = 0;
-    	for (int i = 0; i < quad.length; i++)
-    	{
-    		String value=quad[i];
-    		if (value.length()<1)
-    		{
-    			throw new Exception();
-    		}
-    		int octet = 0;
-    		try {
-    			octet = Integer.parseInt(quad[i]);
-    		} catch (NumberFormatException e) {
-    			throw new Exception();
-    		}
-    		
-    		if (octet > 255)
-    		{
-    			throw new Exception();
-    		}
-    		ip32bit = ip32bit << 8;
-    		ip32bit = ip32bit | octet;
-    	}
+        for (String value : quad) {
+            if (value.length() < 1) {
+                throw new Exception();
+            }
+            int octet;
+            try {
+                octet = Integer.parseInt(value);
+            } catch (NumberFormatException e) {
+                throw new Exception();
+            }
+
+            if (octet > 255) {
+                throw new Exception();
+            }
+            ip32bit = ip32bit << 8;
+            ip32bit = ip32bit | octet;
+        }
     	return ip32bit;
     }
     /**
@@ -461,7 +429,11 @@ public class CIDRCalculator extends Activity {
     	TextView msgIPBinaryNetmask = (TextView)findViewById(R.id.ip_binary_netmask);
         Spinner bitlength_spinner = (Spinner)findViewById(R.id.bitlength);
 
-    	String ip = msgIPAddress.getText().toString();
+        CharSequence ipAddressText = msgIPAddress.getText();
+        if (ipAddressText==null) {
+            return false;
+        }
+    	String ip = ipAddressText.toString();
     	int ip32bit;
 		try {
 			ip32bit = stringIPtoInt(ip);
@@ -469,13 +441,17 @@ public class CIDRCalculator extends Activity {
     		ClearResults();
 	        return false;
 		}
+        String selectedItem = (String)bitlength_spinner.getSelectedItem();
+        if (selectedItem==null) {
+            return false;
+        }
         int bitlength = Integer.parseInt(
-        		bitlength_spinner.getSelectedItem().toString().substring(1));
+                selectedItem.substring(1));
 		if (debug) Log.d(TAG,"bitlength="+bitlength);
 
         int ip32bitmask = (1 << (32-bitlength)) - 1;
         
-        int firstip = ip32bit & (0xffffffff ^ ip32bitmask);
+        int firstip = ip32bit & (~ip32bitmask);
         int lastip = firstip | ip32bitmask;
         
         String ipFirst = IntIPToString(firstip);
@@ -492,7 +468,7 @@ public class CIDRCalculator extends Activity {
 
         String wildcard = IntIPToString(ip32bitmask);
         String binary = Converter.convertIPIntDec2StringBinary(ip32bit);
-        int netmask=(0xffffffff ^ ip32bitmask);
+        int netmask=(~ip32bitmask);
         String binaryNetmask = Converter.convertIPIntDec2StringBinary(netmask);
 
         if (updateView)
@@ -538,7 +514,7 @@ public class CIDRCalculator extends Activity {
     	values.put(History.BITS, bits);
         values.put(History.MODIFIED_DATE, System.currentTimeMillis());
 
-        String selection=new String(History.IP+"=?");
+        String selection= History.IP + "=?";
         String[] selectionArgs=new String[1];
         selectionArgs[0]=ip;
         
@@ -553,6 +529,9 @@ public class CIDRCalculator extends Activity {
         	cursor.moveToFirst();
         	int id=cursor.getInt(0);
         	Uri uri=ContentUris.withAppendedId(mUri, id);
+            if (uri==null) {
+                return;
+            }
         	int count=getContentResolver().update(uri, values, null, null);
         	if (count==0) {
         		Log.e(TAG,"unable to update");
@@ -573,7 +552,7 @@ public class CIDRCalculator extends Activity {
     
     private void doCalculate()
     {
-        if (updateResults(true) == false)
+        if (!updateResults(true))
         {
         	TextView msgAddressRange = (TextView)findViewById(R.id.address_range);
 
@@ -607,6 +586,9 @@ public class CIDRCalculator extends Activity {
 			if (resultCode==RESULT_OK) {
 				Uri uri=data.getData();
 				if (debug) Log.d(TAG,"got: "+uri);
+                if (uri==null) {
+                    return;
+                }
 		        Cursor cursor=getContentResolver().query(uri, PROJECTION, null, null, null);
 		        if (cursor!=null) {
 		        	cursor.moveToFirst();
