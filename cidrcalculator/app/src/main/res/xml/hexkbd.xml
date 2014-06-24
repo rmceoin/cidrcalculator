@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:horizontalGap="1px"
+    android:keyWidth="12.50%p"
+    android:keyHeight="10%p">
+<!--
+    android:horizontalGap="0.50%p"
+    android:verticalGap="0.50%p"
+    NOTE When we add a horizontalGap in pixels, this interferes with keyWidth in percentages adding up to 100%
+    NOTE When we have a horizontalGap (on Keyboard level) of 0, this make the horizontalGap (on Key level) to move from after the key to before the key... (I consider this a bug)
+    @author Maarten Pennings
+    @date   2012 December 23
+
+    Seems to be a bug with horizontalGap.  Documentation says it goes before the Key, but on Kitkat
+    it displays it after.  Set horizontalGap to non-zero at the Keyboard level then it consistently
+    will show after.
+ -->
+    
+    <Row>
+        <Key android:codes="55"    android:keyLabel="7" android:keyEdgeFlags="left" />
+        <Key android:codes="56"    android:keyLabel="8" />
+        <Key android:codes="57"    android:keyLabel="9"  android:horizontalGap="6.25%p" />
+        <Key android:codes="65"    android:keyLabel="A" android:popupKeyboard="@xml/popup" android:popupCharacters="aA" />
+        <Key android:codes="66"    android:keyLabel="B" android:popupKeyboard="@xml/popup" android:popupCharacters="bB" android:horizontalGap="6.25%p"/>
+        <Key android:codes="-5"    android:keyIcon="@drawable/sym_keyboard_delete" android:isRepeatable="true"  />
+        <Key android:codes="55006" android:keyLabel="CLR" android:keyEdgeFlags="right"/>
+    </Row>
+    <Row>
+        <Key android:codes="52"    android:keyLabel="4" android:keyEdgeFlags="left"  />
+        <Key android:codes="53"    android:keyLabel="5" />
+        <Key android:codes="54"    android:keyLabel="6" android:horizontalGap="6.25%p" />
+        <Key android:codes="67"    android:keyLabel="C" android:popupKeyboard="@xml/popup" android:popupCharacters="cC" />
+        <Key android:codes="68"    android:keyLabel="D" android:popupKeyboard="@xml/popup" android:popupCharacters="dD" android:horizontalGap="6.25%p"/>
+        <Key android:codes="55002" android:keyIcon="@drawable/sym_keyboard_left" android:isRepeatable="true"  />
+        <Key android:codes="55003" android:keyIcon="@drawable/sym_keyboard_right" android:isRepeatable="true" android:keyEdgeFlags="right" />
+    </Row>
+    <Row>
+        <Key android:codes="49"    android:keyLabel="1"  android:keyEdgeFlags="left" />
+        <Key android:codes="50"    android:keyLabel="2" />
+        <Key android:codes="51"    android:keyLabel="3" android:horizontalGap="6.25%p" />
+        <Key android:codes="69"    android:keyLabel="E" android:popupKeyboard="@xml/popup" android:popupCharacters="eE"  />
+        <!-- NOTE We could add 'android:keyHeight="20%p"' to the 'E' key, so that it becomes twice as tall. We would then typically make the the 'done' key half the width (12.5%) but give it a double gap (25%) -->
+        <Key android:codes="70"    android:keyLabel="F" android:popupKeyboard="@xml/popup" android:popupCharacters="fF" android:horizontalGap="6.25%p"/>
+        <Key android:codes="55001" android:keyIcon="@drawable/sym_keyboard_allleft"  />
+        <Key android:codes="55004" android:keyIcon="@drawable/sym_keyboard_allright" android:keyEdgeFlags="right" />
+    </Row>
+    <Row>
+        <Key android:codes="48"    android:keyLabel="0" android:keyWidth="25%p" android:keyEdgeFlags="left" />
+        <Key android:codes="46"    android:keyLabel="."  />
+        <Key android:codes="-3"    android:keyIcon="@drawable/sym_keyboard_done" android:keyWidth="25%p" android:horizontalGap="6.25%p" />
+<!--        <Key android:codes="55000" android:keyLabel="PREV" android:horizontalGap="6.25%p" />
+        <Key android:codes="55005" android:keyLabel="NEXT" android:keyEdgeFlags="right" />
+        -->
+    </Row>
+</Keyboard>
