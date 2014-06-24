@@ -10,6 +10,7 @@
     NOTE When we have a horizontalGap (on Keyboard level) of 0, this make the horizontalGap (on Key level) to move from after the key to before the key... (I consider this a bug)
     @author Maarten Pennings
     @date   2012 December 23
+    http://www.fampennings.nl/maarten/android/09keyboard/index.htm
 
     Seems to be a bug with horizontalGap.  Documentation says it goes before the Key, but on Kitkat
     it displays it after.  Set horizontalGap to non-zero at the Keyboard level then it consistently
@@ -47,9 +48,7 @@
     <Row>
         <Key android:codes="48"    android:keyLabel="0" android:keyWidth="25%p" android:keyEdgeFlags="left" />
         <Key android:codes="46"    android:keyLabel="."  />
-        <Key android:codes="-3"    android:keyIcon="@drawable/sym_keyboard_done" android:keyWidth="25%p" android:horizontalGap="6.25%p" />
-<!--        <Key android:codes="55000" android:keyLabel="PREV" android:horizontalGap="6.25%p" />
-        <Key android:codes="55005" android:keyLabel="NEXT" android:keyEdgeFlags="right" />
-        -->
+        <Key android:codes="58"    android:keyLabel=":"  />
+        <Key android:codes="-3"    android:keyIcon="@drawable/sym_keyboard_done" android:keyWidth="25%p" android:keyEdgeFlags="right" />
     </Row>
 </Keyboard>

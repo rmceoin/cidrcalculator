@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?><!--
  *
  * Copyright (C) 2010-2014 Randy McEoin
  *
@@ -15,88 +14,107 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:scrollbars="vertical">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	>
-<TextView
-	android:layout_width="fill_parent" 
-	android:layout_height="wrap_content" 
-	android:text="@string/ipv6_address"
-	android:id="@+id/label_ipv6address"/>
-<AutoCompleteTextView android:id="@+id/ipv6address" 
-	android:completionThreshold="5"  
-	android:layout_below="@id/label_ipv6address"
-	android:singleLine="true" 
-	android:digits="0123456789abcdef.:"
-	android:inputType="textNoSuggestions"
-	android:imeOptions="actionDone"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content" 
-	android:hint="@string/put_ip_here"
-	android:scrollHorizontally="true"
-	android:maxLength="39"/>   
-<Spinner android:id="@+id/ipv6subnetmasks" 
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content" 
-	android:layout_below="@id/ipv6address"
-	/>    
-<Button 
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:text="@string/calculate" 
-	android:id="@+id/ipv6calculate" 
-	android:layout_below="@id/ipv6subnetmasks"
-	/>
-<Button 
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:text="@string/reset" 
-	android:id="@+id/ipv6reset" 
-	android:layout_toRightOf="@id/ipv6calculate"
-	android:layout_alignTop="@id/ipv6calculate"
-	/>
-<TextView  
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:layout_below="@id/ipv6calculate"
-	android:text="@string/address_range"
-	android:id="@+id/v6label_address_range"
-	/>
-<TextView  
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:id="@+id/v6address_range" 
-	android:textSize="20sp"
-	android:layout_below="@id/v6label_address_range"/>
-<TextView  
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:layout_below="@id/v6address_range"
-	android:text="@string/maximum_addresses"
-	android:id="@+id/v6label_maximum_addresses"/>
-<TextView  
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:id="@+id/v6maximum_addresses" 
-	android:textSize="20sp"
-	android:layout_below="@id/v6label_maximum_addresses"/>
-<TextView  
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:layout_below="@id/v6maximum_addresses"
-	android:text="@string/info"
-	android:id="@+id/v6label_info"/>
-<TextView  
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:id="@+id/v6info" 
-	android:textSize="20sp"
-	android:layout_below="@id/v6label_info"/>
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ipv6_outer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CIDRCalculator">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        tools:ignore="UselessParent">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/label_ipv6address"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ipv6_address" />
+
+            <AutoCompleteTextView
+                android:id="@+id/ipv6address"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/label_ipv6address"
+                android:completionThreshold="5"
+                android:digits="0123456789abcdef.:"
+                android:hint="@string/put_ip_here"
+                android:imeOptions="actionDone"
+                android:inputType="textNoSuggestions"
+                android:maxLength="39"
+                android:scrollHorizontally="true"
+                android:singleLine="true" />
+
+            <Spinner
+                android:id="@+id/ipv6subnetmasks"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ipv6address" />
+
+            <Button
+                android:id="@+id/ipv6calculate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ipv6subnetmasks"
+                android:text="@string/calculate" />
+
+            <Button
+                android:id="@+id/ipv6reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/ipv6calculate"
+                android:layout_toRightOf="@id/ipv6calculate"
+                android:text="@string/reset" />
+
+            <TextView
+                android:id="@+id/v6label_address_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ipv6calculate"
+                android:text="@string/address_range" />
+
+            <TextView
+                android:id="@+id/v6address_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/v6label_address_range"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/v6label_maximum_addresses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/v6address_range"
+                android:text="@string/maximum_addresses" />
+
+            <TextView
+                android:id="@+id/v6maximum_addresses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/v6label_maximum_addresses"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/v6label_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/v6maximum_addresses"
+                android:text="@string/info" />
+
+            <TextView
+                android:id="@+id/v6info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/v6label_info"
+                android:textSize="20sp" />
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
-</ScrollView>
