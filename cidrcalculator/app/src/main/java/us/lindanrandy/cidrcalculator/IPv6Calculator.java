@@ -25,6 +25,7 @@ import java.net.UnknownHostException;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,14 +35,20 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 
+import static us.lindanrandy.cidrcalculator.R.id.ipaddress;
+import static us.lindanrandy.cidrcalculator.R.id.ipv6address;
+import static us.lindanrandy.cidrcalculator.R.id.keyboardview;
+
 public class IPv6Calculator extends Activity {
 	
     private static final String TAG = IPv6Calculator.class.getSimpleName();
-    private static final boolean debug = true;
+    private static final boolean debug = false;
 	
 	public final int DEFAULT_BITS=64;
 	private TextView msgIPAddress;
@@ -49,7 +56,9 @@ public class IPv6Calculator extends Activity {
 	private int CurrentBitsIPv6;
 	Animation anim = null;
 
-	class MulticastAddress {
+    CustomKeyboard mCustomKeyboard;
+
+    class MulticastAddress {
 		String address;
 		int description;
 		public MulticastAddress(String address,int description){
@@ -75,6 +84,21 @@ public class IPv6Calculator extends Activity {
 		anim = AnimationUtils.loadAnimation( this, R.anim.highlight );
 
 		setContentView(R.layout.ipv6calc);
+
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.ipv6_outer_layout);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        KeyboardView keyboard = new KeyboardView(this, null);
+        keyboard.setId(keyboardview);
+        keyboard.setLayoutParams(params);
+        keyboard.setFocusable(true);
+        keyboard.setFocusableInTouchMode(true);
+        keyboard.setVisibility(View.GONE);
+        layout.addView(keyboard);
+
+        mCustomKeyboard= new CustomKeyboard(this, keyboardview, R.xml.hexkbd );
+        mCustomKeyboard.registerEditText(ipv6address);
 
 		SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
 		CurrentIPv6 = settings.getString(Preferences.PREFERENCE_CURRENTIPv6, "");
