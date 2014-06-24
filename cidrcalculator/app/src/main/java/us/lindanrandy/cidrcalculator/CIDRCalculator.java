@@ -31,6 +31,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
+import android.inputmethodservice.KeyboardView;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -45,6 +46,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.view.Menu;
 import android.widget.ArrayAdapter;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter.CursorToStringConverter;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
@@ -55,6 +58,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.text.InputType;
 import android.util.Log;
+
+import static us.lindanrandy.cidrcalculator.R.id.*;
 
 public class CIDRCalculator extends Activity {
 
@@ -80,7 +85,9 @@ public class CIDRCalculator extends Activity {
 
 	public static final int REQUEST_HISTORY = 0;
 	public static final int REQUEST_CONVERT = 1;
-	
+
+	CustomKeyboard mCustomKeyboard;
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle icicle) {
@@ -92,17 +99,45 @@ public class CIDRCalculator extends Activity {
        
         setContentView(R.layout.main);
 
+        /*
+        Since it gives errors when directly in the xml of the layout, we'll dynamically add
+        the keyboard.
+           <android.inputmethodservice.KeyboardView
+        android:id="@+id/keyboardview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:visibility="gone" />
+         */
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.main_outer_layout);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        KeyboardView keyboard = new KeyboardView(this, null);
+        keyboard.setId(keyboardview);
+        keyboard.setLayoutParams(params);
+        keyboard.setFocusable(true);
+        keyboard.setFocusableInTouchMode(true);
+        keyboard.setVisibility(View.GONE);
+        layout.addView(keyboard);
+
+        mCustomKeyboard= new CustomKeyboard(this, keyboardview, R.xml.hexkbd );
+        mCustomKeyboard.registerEditText(ipaddress);
+
         SharedPreferences settings = getPreferences(0);
         CurrentIP = settings.getString("CurrentIP", "");
         CurrentBits = settings.getInt("CurrentBits", 24);
 
-        Spinner s1 = (Spinner) findViewById(R.id.bitlength);
+        Spinner s1 = (Spinner) findViewById(bitlength);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.bitlengths, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s1.setAdapter(adapter);
 
-        Spinner s2 = (Spinner) findViewById(R.id.subnetmask);
+        Spinner s2 = (Spinner) findViewById(subnetmask);
         ArrayAdapter<CharSequence> subnetmask_adapter = ArrayAdapter.createFromResource(
                 this, R.array.subnets, android.R.layout.simple_spinner_item);
         subnetmask_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -119,7 +154,7 @@ public class CIDRCalculator extends Activity {
         Button reset = (Button)findViewById(R.id.reset);
         reset.setOnClickListener(mResetListener);
 
-    	msgIPAddress = (TextView)findViewById(R.id.ipaddress);
+    	msgIPAddress = (TextView)findViewById(ipaddress);
         if (!CurrentIP.equals(""))
         {
         	msgIPAddress.setText(CurrentIP);
@@ -167,7 +202,13 @@ public class CIDRCalculator extends Activity {
 		    }
 		});
     }
-    
+
+    @Override
+    public void onBackPressed() {
+        // NOTE Trap the back key: when the CustomKeyboard is still visible hide it, only when it is invisible, finish activity
+        if( mCustomKeyboard.isCustomKeyboardVisible() ) mCustomKeyboard.hideCustomKeyboard(); else this.finish();
+    }
+
     public class HistoryCursorConverter implements
     	CursorToStringConverter
     {
@@ -187,10 +228,10 @@ public class CIDRCalculator extends Activity {
 
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean autocomplete=sp.getBoolean(Preferences.PREFERENCE_AUTOCOMPLETE, true);
-		String input_keyboard=sp.getString(Preferences.PREFERENCE_INPUT_KEYBOARD, 
+		String input_keyboard=sp.getString(Preferences.PREFERENCE_INPUT_KEYBOARD,
 				Preferences.PREFERENCE_INPUT_KEYBOARD_DEFAULT);
 
-		AutoCompleteTextView ipField = (AutoCompleteTextView) findViewById(R.id.ipaddress);
+		AutoCompleteTextView ipField = (AutoCompleteTextView) findViewById(ipaddress);
 		if (autocomplete) {
 			ipField.setThreshold(3);
 		}else
@@ -320,8 +361,8 @@ public class CIDRCalculator extends Activity {
      */
     private void UpdateSubnetmaskFromBitlength()
     {
-        Spinner bitlength_spinner = (Spinner) findViewById(R.id.bitlength);
-        Spinner subnetmask_spinner = (Spinner) findViewById(R.id.subnetmask);
+        Spinner bitlength_spinner = (Spinner) findViewById(bitlength);
+        Spinner subnetmask_spinner = (Spinner) findViewById(subnetmask);
         
         subnetmask_spinner.setSelection(bitlength_spinner.getSelectedItemPosition());
     }
@@ -331,8 +372,8 @@ public class CIDRCalculator extends Activity {
      */
     private void UpdateBitlengthFromSubnetmask()
     {
-        Spinner bitlength_spinner = (Spinner) findViewById(R.id.bitlength);
-        Spinner subnetmask_spinner = (Spinner) findViewById(R.id.subnetmask);
+        Spinner bitlength_spinner = (Spinner) findViewById(bitlength);
+        Spinner subnetmask_spinner = (Spinner) findViewById(subnetmask);
         
         bitlength_spinner.setSelection(subnetmask_spinner.getSelectedItemPosition());
     }
@@ -371,12 +412,12 @@ public class CIDRCalculator extends Activity {
      */
     private void ClearResults()
     {
-    	TextView msgAddressRange = (TextView)findViewById(R.id.address_range);
-    	TextView msgMaximumAddresses = (TextView)findViewById(R.id.maximum_addresses);
-    	TextView msgWildcard = (TextView)findViewById(R.id.wildcard);
-    	TextView msgIPBinaryNetwork = (TextView)findViewById(R.id.ip_binary_network);
-    	TextView msgIPBinaryHost = (TextView)findViewById(R.id.ip_binary_host);
-    	TextView msgIPBinaryNetmask = (TextView)findViewById(R.id.ip_binary_netmask);
+    	TextView msgAddressRange = (TextView)findViewById(address_range);
+    	TextView msgMaximumAddresses = (TextView)findViewById(maximum_addresses);
+    	TextView msgWildcard = (TextView)findViewById(wildcard);
+    	TextView msgIPBinaryNetwork = (TextView)findViewById(ip_binary_network);
+    	TextView msgIPBinaryHost = (TextView)findViewById(ip_binary_host);
+    	TextView msgIPBinaryNetmask = (TextView)findViewById(ip_binary_netmask);
 
         msgAddressRange.setText("");
         msgMaximumAddresses.setText("");
@@ -421,13 +462,13 @@ public class CIDRCalculator extends Activity {
      */
     private boolean updateResults(boolean updateView)
     {
-    	TextView msgAddressRange = (TextView)findViewById(R.id.address_range);
-    	TextView msgMaximumAddresses = (TextView)findViewById(R.id.maximum_addresses);
-    	TextView msgWildcard = (TextView)findViewById(R.id.wildcard);
-    	TextView msgIPBinaryNetwork = (TextView)findViewById(R.id.ip_binary_network);
-    	TextView msgIPBinaryHost = (TextView)findViewById(R.id.ip_binary_host);
-    	TextView msgIPBinaryNetmask = (TextView)findViewById(R.id.ip_binary_netmask);
-        Spinner bitlength_spinner = (Spinner)findViewById(R.id.bitlength);
+    	TextView msgAddressRange = (TextView)findViewById(address_range);
+    	TextView msgMaximumAddresses = (TextView)findViewById(maximum_addresses);
+    	TextView msgWildcard = (TextView)findViewById(wildcard);
+    	TextView msgIPBinaryNetwork = (TextView)findViewById(ip_binary_network);
+    	TextView msgIPBinaryHost = (TextView)findViewById(ip_binary_host);
+    	TextView msgIPBinaryNetmask = (TextView)findViewById(ip_binary_netmask);
+        Spinner bitlength_spinner = (Spinner)findViewById(bitlength);
 
         CharSequence ipAddressText = msgIPAddress.getText();
         if (ipAddressText==null) {
@@ -554,7 +595,7 @@ public class CIDRCalculator extends Activity {
     {
         if (!updateResults(true))
         {
-        	TextView msgAddressRange = (TextView)findViewById(R.id.address_range);
+        	TextView msgAddressRange = (TextView)findViewById(address_range);
 
         	msgAddressRange.setText(R.string.err_bad_ip);
         }
@@ -577,7 +618,7 @@ public class CIDRCalculator extends Activity {
     {
     	msgIPAddress.setText(CurrentIP);
 
-        Spinner bitlength_spinner = (Spinner)findViewById(R.id.bitlength);
+        Spinner bitlength_spinner = (Spinner)findViewById(bitlength);
         bitlength_spinner.setSelection(CurrentBits - 1);
     }
     

@@ -1,4 +1,5 @@
-1.18 2014-??-?? Converted to Git and Android Studio
+1.19 2014-??-?? Added custom hex keyboard
+1.18 2014-06-23 Converted to Git and Android Studio
 1.17 2012-??-?? (not released) catches database errors when out of flash memory
 1.16 2012-01-26 Added Ice Cream Sandwich version level.
 1.15 2011-??-?? (not released) Added preference for input type of text or number

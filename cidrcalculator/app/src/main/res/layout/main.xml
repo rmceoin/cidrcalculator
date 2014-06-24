@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
+<?xml version="1.0" encoding="utf-8"?><!--
  *
  * Copyright (C) 2008-2014 Randy McEoin
  *
@@ -15,128 +14,175 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:scrollbars="vertical">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	>
-<TextView
-	android:layout_width="fill_parent" 
-	android:layout_height="wrap_content" 
-	android:text="@string/ip_address"
-	android:id="@+id/label_ipaddress"/>
-<AutoCompleteTextView android:id="@+id/ipaddress" 
-	android:completionThreshold="5"  
-	android:layout_below="@id/label_ipaddress"
-	android:singleLine="true" 
-	android:digits="0123456789."
-	android:inputType="text"
-	android:imeOptions="actionDone"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content" 
-	android:ems="9"
-	android:hint="@string/put_ip_here"
-	android:scrollHorizontally="true"
-	android:maxLength="15"/>   
-<Spinner android:id="@+id/bitlength" 
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content" 
-	android:layout_toRightOf="@id/ipaddress"
-	android:layout_alignTop="@id/ipaddress"
-	/>    
-<Spinner android:id="@+id/subnetmask" 
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content" 
-	android:layout_below="@id/ipaddress"
-	/>    
-<Button 
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:text="@string/calculate" 
-	android:id="@+id/calculate" 
-	android:layout_below="@id/subnetmask"
-	/>
-<Button 
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:text="@string/reset" 
-	android:id="@+id/reset" 
-	android:layout_toRightOf="@id/calculate"
-	android:layout_alignTop="@id/calculate"
-	/>
-<TextView  
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:layout_below="@id/calculate"
-	android:text="@string/address_range"
-	android:id="@+id/label_address_range"
-	/>
-<TextView  
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:id="@+id/address_range" 
-	android:textSize="20sp"
-	android:layout_below="@id/label_address_range"/>
-<TextView  
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:layout_below="@id/address_range"
-	android:text="@string/maximum_addresses"
-	android:id="@+id/label_maximum_addresses"/>
-<TextView  
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:id="@+id/maximum_addresses" 
-	android:textSize="20sp"
-	android:layout_below="@id/label_maximum_addresses"/>
-<TextView  
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:layout_below="@id/maximum_addresses"
-	android:text="@string/wildcard"
-	android:id="@+id/label_wildcard"/>
-<TextView  
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:id="@+id/wildcard" 
-	android:textSize="20sp"
-	android:layout_below="@id/label_wildcard"/>
-<TextView  
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:layout_below="@id/wildcard"
-	android:text="@string/ip_binary"
-	android:id="@+id/label_ip_binary"/>
-<TextView  
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:id="@+id/ip_binary_network" 
-	android:textSize="16sp"
-	android:background="#602d00"
-	android:layout_below="@id/label_ip_binary"/>
-<TextView  
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content"
-	android:id="@+id/ip_binary_host" 
-	android:textSize="16sp"
-	android:background="#0c003f"
-	android:layout_below="@id/label_ip_binary"
-	android:layout_toRightOf="@id/ip_binary_network"/>
-<TextView  
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:layout_below="@id/ip_binary_network"
-	android:text="@string/ip_binary_netmask"
-	android:id="@+id/label_ip_binary_netmask"/>
-<TextView  
-	android:layout_width="wrap_content" 
-	android:layout_height="wrap_content" 
-	android:id="@+id/ip_binary_netmask" 
-	android:textSize="16sp"
-	android:layout_below="@id/label_ip_binary_netmask"/>
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/main_outer_layout"
+    tools:context=".CIDRCalculator">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/label_ipaddress"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ip_address" />
+
+            <AutoCompleteTextView
+                android:id="@+id/ipaddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/label_ipaddress"
+                android:completionThreshold="5"
+                android:digits="0123456789."
+                android:ems="9"
+                android:hint="@string/put_ip_here"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLength="15"
+                android:scrollHorizontally="true"
+                android:singleLine="true" />
+
+            <Spinner
+                android:id="@+id/bitlength"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/ipaddress"
+                android:layout_toRightOf="@id/ipaddress" />
+
+            <Spinner
+                android:id="@+id/subnetmask"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ipaddress" />
+
+            <Button
+                android:id="@+id/calculate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/subnetmask"
+                android:text="@string/calculate" />
+
+            <Button
+                android:id="@+id/reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/calculate"
+                android:layout_toRightOf="@id/calculate"
+                android:text="@string/reset" />
+
+            <TextView
+                android:id="@+id/label_address_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/calculate"
+                android:text="@string/address_range" />
+
+            <TextView
+                android:id="@+id/address_range"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/label_address_range"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/label_maximum_addresses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/address_range"
+                android:text="@string/maximum_addresses" />
+
+            <TextView
+                android:id="@+id/maximum_addresses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/label_maximum_addresses"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/label_wildcard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/maximum_addresses"
+                android:text="@string/wildcard" />
+
+            <TextView
+                android:id="@+id/wildcard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/label_wildcard"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/label_ip_binary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/wildcard"
+                android:text="@string/ip_binary" />
+
+            <TextView
+                android:id="@+id/ip_binary_network"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/label_ip_binary"
+                android:background="#602d00"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/ip_binary_host"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/label_ip_binary"
+                android:layout_toRightOf="@id/ip_binary_network"
+                android:background="#0c003f"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/label_ip_binary_netmask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ip_binary_network"
+                android:text="@string/ip_binary_netmask" />
+
+            <TextView
+                android:id="@+id/ip_binary_netmask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/label_ip_binary_netmask"
+                android:textSize="16sp" />
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+    <!--
+
+    <LinearLayout
+        android:id="@+id/hexkeyboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        />
+    <android.inputmethodservice.KeyboardView
+        android:id="@+id/keyboardview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:visibility="gone" />
+        -->
+
 </RelativeLayout>
-</ScrollView>
