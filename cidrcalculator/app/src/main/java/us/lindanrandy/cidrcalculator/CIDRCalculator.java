@@ -102,7 +102,7 @@ public class CIDRCalculator extends Activity {
         /*
         Since it gives errors when directly in the xml of the layout, we'll dynamically add
         the keyboard.
-           <android.inputmethodservice.KeyboardView
+        <android.inputmethodservice.KeyboardView
         android:id="@+id/keyboardview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

@@ -42,6 +42,7 @@ import java.util.List;
  *
  * @author Maarten Pennings
  * @date   2012 December 23
+ * http://www.fampennings.nl/maarten/android/09keyboard/index.htm
  */
 class CustomKeyboard {
 
