@@ -1,7 +1,5 @@
 /*
- * $Id: Converter.java 20 2009-06-11 00:10:57Z rmceoin $
- *  
- * Copyright (C) 2008 Randy McEoin
+ * Copyright (C) 2008-2014 Randy McEoin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +17,7 @@ package us.lindanrandy.cidrcalculator;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -28,7 +27,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import static us.lindanrandy.cidrcalculator.R.id.keyboardview;
 
 public class Converter extends Activity {
 
@@ -38,15 +41,16 @@ public class Converter extends Activity {
 	public static final String EXTRA_IP="IP";
 	
 	private String currentIP;
-	private String currentBinary;
-	private EditText ipAddress;
+    private EditText ipAddress;
 	private EditText ipBinary;
 	private EditText ipHex;
 	Animation pulseAnim = null;
 
 	public static final int RETURNIP_MENUID = Menu.FIRST;
-	
-	@Override
+
+    CustomKeyboard mCustomKeyboard;
+
+    @Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
 
@@ -56,11 +60,31 @@ public class Converter extends Activity {
 
 		setContentView(R.layout.converter);
 
-		ipAddress = (EditText) findViewById(R.id.ipaddress);
-		ipBinary = (EditText) findViewById(R.id.ipbinary);
-		ipHex = (EditText) findViewById(R.id.iphex);
-		
-		currentIP = icicle != null ? icicle.getString(Converter.EXTRA_IP) : null;
+
+
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.converter_outer_layout);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        KeyboardView keyboard = new KeyboardView(this, null);
+        keyboard.setId(keyboardview);
+        keyboard.setLayoutParams(params);
+        keyboard.setFocusable(true);
+        keyboard.setFocusableInTouchMode(true);
+        keyboard.setVisibility(View.GONE);
+        layout.addView(keyboard);
+
+        mCustomKeyboard= new CustomKeyboard(this, keyboardview, R.xml.hexkbd );
+        mCustomKeyboard.registerEditText(R.id.ipaddress);
+        mCustomKeyboard.registerEditText(R.id.ipbinary);
+        mCustomKeyboard.registerEditText(R.id.iphex);
+
+        ipAddress = (EditText) findViewById(R.id.ipaddress);
+        ipBinary = (EditText) findViewById(R.id.ipbinary);
+        ipHex = (EditText) findViewById(R.id.iphex);
+
+
+        currentIP = icicle != null ? icicle.getString(Converter.EXTRA_IP) : null;
 		if (currentIP == null) {
 		    Bundle extras = getIntent().getExtras();            
 		    currentIP = extras != null ? extras.getString(Converter.EXTRA_IP) : null;
@@ -164,8 +188,8 @@ public class Converter extends Activity {
 	}
 	
 	private void convertBinary() {
-		currentBinary=ipBinary.getText().toString().trim();
-		if (debug) Log.d(TAG,"convertBinary: currentBinary="+currentBinary);
+        String currentBinary = ipBinary.getText().toString().trim();
+		if (debug) Log.d(TAG,"convertBinary: currentBinary="+ currentBinary);
 		
 		if (currentBinary.length() < 32) {
 			Toast.makeText(Converter.this, R.string.err_bad_ip,
@@ -174,13 +198,13 @@ public class Converter extends Activity {
 			return;
 		}
 		try {
-			String octet1b = currentBinary.substring(0,8);
+			String octet1b = currentBinary.substring(0, 8);
 			if (debug) Log.d(TAG,"convertToBinary: octet1b="+octet1b);
-			String octet2b = currentBinary.substring(9,17);
+			String octet2b = currentBinary.substring(9, 17);
 			if (debug) Log.d(TAG,"convertToBinary: octet2b="+octet2b);
-			String octet3b = currentBinary.substring(18,26);
+			String octet3b = currentBinary.substring(18, 26);
 			if (debug) Log.d(TAG,"convertToBinary: octet3b="+octet3b);
-			String octet4b = currentBinary.substring(27,35);
+			String octet4b = currentBinary.substring(27, 35);
 			if (debug) Log.d(TAG,"convertToBinary: octet4b="+octet4b);
 
 			long octet1i = Integer.parseInt(octet1b,2);

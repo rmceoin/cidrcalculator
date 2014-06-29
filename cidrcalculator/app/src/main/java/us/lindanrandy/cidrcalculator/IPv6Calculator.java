@@ -41,7 +41,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-import static us.lindanrandy.cidrcalculator.R.id.ipaddress;
 import static us.lindanrandy.cidrcalculator.R.id.ipv6address;
 import static us.lindanrandy.cidrcalculator.R.id.keyboardview;
 
@@ -142,7 +141,7 @@ public class IPv6Calculator extends Activity {
 		editor.putInt(Preferences.PREFERENCE_CURRENTBITSIPv6, CurrentBitsIPv6);
 
 		// Don't forget to commit your edits!!!
-		editor.commit();
+		editor.apply();
 	}
 
 	private OnItemSelectedListener mSubnetMaskSelectedListener = new OnItemSelectedListener()
