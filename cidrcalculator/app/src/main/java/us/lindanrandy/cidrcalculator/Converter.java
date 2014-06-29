@@ -287,7 +287,7 @@ public class Converter extends Activity {
 	
 	public static String convertIPIntDec2StringBinary(int intIP) {
 		if (debug) Log.d(TAG,"convertIPIntDec2StringBinary("+intIP+")");
-		String stringIP="";
+		String stringIP;
 		stringIP = Integer.toBinaryString(intIP);
 		int length=stringIP.length();
 		if (length<32) {
@@ -306,7 +306,7 @@ public class Converter extends Activity {
 
 	public static String convertIPIntDec2StringHex(int intIP) {
 		if (debug) Log.d(TAG,"convertIPIntDec2StringBinary("+intIP+")");
-		String stringIP="";
+		String stringIP;
 		stringIP = Integer.toHexString(intIP);
 		int length=stringIP.length();
 		if (length<8) {
