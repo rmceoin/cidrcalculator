@@ -262,7 +262,7 @@ public class CIDRCalculator extends Activity {
 		editor.putInt("CurrentBits", CurrentBits);
 		
 		// Don't forget to commit your edits!!!
-		editor.commit();
+		editor.apply();
     }
 
     //  Called only the first time the options menu is displayed.
