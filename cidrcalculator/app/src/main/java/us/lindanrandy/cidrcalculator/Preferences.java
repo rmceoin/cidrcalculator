@@ -16,22 +16,44 @@
  */
 package us.lindanrandy.cidrcalculator;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
 
 public class Preferences extends PreferenceActivity {
 
-	public static final String PREFERENCE_HISTORY_ENTRIES = "history_entries";
-	public static final String PREFERENCE_AUTOCOMPLETE = "autocomplete";
-	public static final String PREFERENCE_CURRENTIPv6 = "CurrentIPv6";
-	public static final String PREFERENCE_CURRENTBITSIPv6 = "CurrentBitsIPv6";
-	public static final String PREFERENCE_INPUT_KEYBOARD = "input_keyboard";
-	public static final String PREFERENCE_INPUT_KEYBOARD_DEFAULT = "Text";
-	
+    public static final String PREFERENCE_HISTORY_ENTRIES = "history_entries";
+    public static final String PREFERENCE_AUTOCOMPLETE = "autocomplete";
+    public static final String PREFERENCE_CURRENTIPv6 = "CurrentIPv6";
+    public static final String PREFERENCE_CURRENTBITSIPv6 = "CurrentBitsIPv6";
+    public static final String PREFERENCE_INPUT_KEYBOARD = "input_keyboard";
+    public static final String PREFERENCE_INPUT_KEYBOARD_DEFAULT = "Text";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Load the preferences from an XML resource
-        addPreferencesFromResource(R.xml.preferences);
+//        addPreferencesFromResource(R.xml.preferences);
+
+        // Display the fragment as the main content.
+        FragmentManager mFragmentManager = getFragmentManager();
+        FragmentTransaction mFragmentTransaction = mFragmentManager
+                .beginTransaction();
+        Prefs1Fragment mPrefsFragment = new Prefs1Fragment();
+        mFragmentTransaction.replace(android.R.id.content, mPrefsFragment);
+        mFragmentTransaction.commit();
     }
+
+    public static class Prefs1Fragment extends PreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            addPreferencesFromResource(R.xml.preferences);
+        }
+    }
+
+
 }
