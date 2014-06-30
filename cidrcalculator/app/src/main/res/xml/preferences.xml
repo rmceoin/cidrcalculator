@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-* $Id: preferences.xml 1940 2009-02-14 05:12:48Z rmceoin $
-* 
-* Copyright 2009 Randy McEoin
+*
+* Copyright 2009-2014 Randy McEoin
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -39,6 +38,7 @@
                 android:dialogTitle="@string/pref_dialog_title_history_entries"
             	android:defaultValue="100" />    
 
+<!--
         <ListPreference
                 android:key="input_keyboard"
                 android:title="@string/pref_title_input_keyboard"
@@ -47,6 +47,7 @@
                 android:entryValues="@array/pref_array_input_keyboard"
                 android:dialogTitle="@string/pref_dialog_title_input_keyboard"
             	android:defaultValue="text" />    
+-->
 
     </PreferenceCategory>
 </PreferenceScreen>

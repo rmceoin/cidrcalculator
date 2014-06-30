@@ -1,4 +1,6 @@
 /**
+ * Copyright (C) 2014 Randy McEoin
+ *
  * Copyright 2013 Maarten Pennings
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
