@@ -43,7 +43,7 @@ import android.widget.EditText;
  * When an activity hosts a keyboardView, this class allows several EditText's to register for it.
  *
  * @author Maarten Pennings
- * @date   2012 December 23
+ * @date 2012 December 23
  * http://www.fampennings.nl/maarten/android/09keyboard/index.htm
  */
 class CustomKeyboard {
@@ -51,10 +51,14 @@ class CustomKeyboard {
 //    private static final String TAG = CustomKeyboard.class.getSimpleName();
 //    private static final boolean debug = true;
 
-    /** A link to the KeyboardView that is used to render this CustomKeyboard. */
+    /**
+     * A link to the KeyboardView that is used to render this CustomKeyboard.
+     */
     private KeyboardView mKeyboardView;
-    /** A link to the activity that hosts the {@link #mKeyboardView}. */
-    private Activity     mHostActivity;
+    /**
+     * A link to the activity that hosts the {@link #mKeyboardView}.
+     */
+    private Activity mHostActivity;
 
     /**
      * Create a custom keyboard, that uses the KeyboardView (with resource id <var>viewid</var>) of the <var>host</var> activity,
@@ -63,13 +67,13 @@ class CustomKeyboard {
      * Note that the keyboard layout xml file may include key codes for navigation; see the constants in this class for their values.
      * Note that to enable EditText's to use this custom keyboard, call the {@link #registerEditText(int)}.
      *
-     * @param host The hosting activity.
-     * @param viewid The id of the KeyboardView.
+     * @param host     The hosting activity.
+     * @param viewid   The id of the KeyboardView.
      * @param layoutid The id of the xml file containing the keyboard layout.
      */
     public CustomKeyboard(Activity host, int viewid, int layoutid) {
-        mHostActivity= host;
-        mKeyboardView= (KeyboardView)mHostActivity.findViewById(viewid);
+        mHostActivity = host;
+        mKeyboardView = (KeyboardView) mHostActivity.findViewById(viewid);
         mKeyboardView.setKeyboard(new Keyboard(mHostActivity, layoutid));
         mKeyboardView.setPreviewEnabled(false); // NOTE Do not show the preview balloons
         /* The key (code) handler. */
@@ -156,19 +160,26 @@ class CustomKeyboard {
         mHostActivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
-    /** Returns whether the CustomKeyboard is visible. */
+    /**
+     * Returns whether the CustomKeyboard is visible.
+     */
     public boolean isCustomKeyboardVisible() {
         return mKeyboardView.getVisibility() == View.VISIBLE;
     }
 
-    /** Make the CustomKeyboard visible, and hide the system keyboard for view v. */
-    public void showCustomKeyboard( View v ) {
+    /**
+     * Make the CustomKeyboard visible, and hide the system keyboard for view v.
+     */
+    public void showCustomKeyboard(View v) {
         mKeyboardView.setVisibility(View.VISIBLE);
         mKeyboardView.setEnabled(true);
-        if( v!=null ) ((InputMethodManager)mHostActivity.getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(v.getWindowToken(), 0);
+        if (v != null)
+            ((InputMethodManager) mHostActivity.getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
-    /** Make the CustomKeyboard invisible. */
+    /**
+     * Make the CustomKeyboard invisible.
+     */
     public void hideCustomKeyboard() {
         mKeyboardView.setVisibility(View.GONE);
         mKeyboardView.setEnabled(false);
@@ -181,24 +192,28 @@ class CustomKeyboard {
      */
     public void registerEditText(int resid) {
         // Find the EditText 'resid'
-        EditText edittext= (EditText)mHostActivity.findViewById(resid);
+        EditText edittext = (EditText) mHostActivity.findViewById(resid);
         // Make the custom keyboard appear
         edittext.setOnFocusChangeListener(new OnFocusChangeListener() {
             // NOTE By setting the on focus listener, we can show the custom keyboard when the edit box gets focus, but also hide it when the edit box loses focus
-            @Override public void onFocusChange(View v, boolean hasFocus) {
-                if( hasFocus ) showCustomKeyboard(v); else hideCustomKeyboard();
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) showCustomKeyboard(v);
+                else hideCustomKeyboard();
             }
         });
         edittext.setOnClickListener(new OnClickListener() {
             // NOTE By setting the on click listener, we can show the custom keyboard again, by tapping on an edit box that already had focus (but that had the keyboard hidden).
-            @Override public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
                 showCustomKeyboard(v);
             }
         });
         // Disable standard keyboard hard way
         // NOTE There is also an easy way: 'edittext.setInputType(InputType.TYPE_NULL)' (but you will not have a cursor, and no 'edittext.setCursorVisible(true)' doesn't work )
         edittext.setOnTouchListener(new OnTouchListener() {
-            @Override public boolean onTouch(View v, MotionEvent event) {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
                 EditText edittext = (EditText) v;
                 int inType = edittext.getInputType();       // Backup the input type
                 edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
@@ -209,8 +224,8 @@ class CustomKeyboard {
                         Layout layout = ((EditText) v).getLayout();
                         float x = event.getX() + v.getScrollX();
                         int offset = layout.getOffsetForHorizontal(0, x);
-                        if(offset>0)
-                            if(x>layout.getLineMax(0)) {
+                        if (offset > 0)
+                            if (x > layout.getLineMax(0)) {
                                 ((EditText) v).setSelection(offset);    // touch was at end of text
                             } else
                                 ((EditText) v).setSelection(offset - 1);
