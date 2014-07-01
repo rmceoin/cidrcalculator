@@ -27,6 +27,7 @@ import android.inputmethodservice.KeyboardView;
 import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.Layout;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -203,6 +204,18 @@ class CustomKeyboard {
                 edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
                 edittext.onTouchEvent(event);               // Call native handler
                 edittext.setInputType(inType);              // Restore input type
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        Layout layout = ((EditText) v).getLayout();
+                        float x = event.getX() + v.getScrollX();
+                        int offset = layout.getOffsetForHorizontal(0, x);
+                        if(offset>0)
+                            if(x>layout.getLineMax(0)) {
+                                ((EditText) v).setSelection(offset);    // touch was at end of text
+                            } else
+                                ((EditText) v).setSelection(offset - 1);
+                        break;
+                }
                 return true; // Consume touch event
             }
         });
