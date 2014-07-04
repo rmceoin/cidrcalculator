@@ -38,7 +38,6 @@
                 android:dialogTitle="@string/pref_dialog_title_history_entries"
             	android:defaultValue="100" />    
 
-<!--
         <ListPreference
                 android:key="input_keyboard"
                 android:title="@string/pref_title_input_keyboard"
@@ -46,8 +45,7 @@
                 android:entries="@array/pref_array_input_keyboard"
                 android:entryValues="@array/pref_array_input_keyboard"
                 android:dialogTitle="@string/pref_dialog_title_input_keyboard"
-            	android:defaultValue="text" />    
--->
+            	android:defaultValue="@string/custom_hex" />
 
     </PreferenceCategory>
 </PreferenceScreen>

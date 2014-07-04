@@ -86,7 +86,9 @@ public class CIDRCalculator extends Activity {
 	public static final int REQUEST_HISTORY = 0;
 	public static final int REQUEST_CONVERT = 1;
 
+    RelativeLayout outerLayout;
 	CustomKeyboard mCustomKeyboard;
+    KeyboardView keyboardView;
 
     /** Called when the activity is first created. */
     @Override
@@ -112,17 +114,18 @@ public class CIDRCalculator extends Activity {
         android:focusableInTouchMode="true"
         android:visibility="gone" />
          */
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.main_outer_layout);
+        outerLayout = (RelativeLayout) findViewById(R.id.main_outer_layout);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        KeyboardView keyboard = new KeyboardView(this, null);
-        keyboard.setId(keyboardview);
-        keyboard.setLayoutParams(params);
-        keyboard.setFocusable(true);
-        keyboard.setFocusableInTouchMode(true);
-        keyboard.setVisibility(View.GONE);
-        layout.addView(keyboard);
+        keyboardView = new KeyboardView(this, null);
+        keyboardView.setId(keyboardview);
+        keyboardView.setLayoutParams(params);
+        keyboardView.setFocusable(true);
+        keyboardView.setFocusableInTouchMode(true);
+        keyboardView.setVisibility(View.GONE);
+        keyboardView.setEnabled(false);
+        outerLayout.addView(keyboardView);
 
         mCustomKeyboard= new CustomKeyboard(this, keyboardview, R.xml.hexkbd );
         mCustomKeyboard.registerEditText(ipaddress);
@@ -186,21 +189,21 @@ public class CIDRCalculator extends Activity {
 		AutoCompleteTextView ipField = (AutoCompleteTextView) msgIPAddress;
 		ipField.setAdapter(adapter2);
 		ipField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-		    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-		        if (actionId == EditorInfo.IME_ACTION_DONE) {
-					doCalculate();
-			        Button calculate = (Button)findViewById(R.id.calculate);
-			        calculate.requestFocus();
-			     // close soft keyboard 
-			        InputMethodManager inputManager = (InputMethodManager) 
-			        CIDRCalculator.this.getSystemService(Context.INPUT_METHOD_SERVICE); 
-			        inputManager.hideSoftInputFromWindow(calculate.getWindowToken(), 
-			        		InputMethodManager.HIDE_NOT_ALWAYS); 
-		            return true;
-		        }
-		        return false;
-		    }
-		});
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    doCalculate();
+                    Button calculate = (Button) findViewById(R.id.calculate);
+                    calculate.requestFocus();
+                    // close soft keyboard
+                    InputMethodManager inputManager = (InputMethodManager)
+                            CIDRCalculator.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputManager.hideSoftInputFromWindow(calculate.getWindowToken(),
+                            InputMethodManager.HIDE_NOT_ALWAYS);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -229,22 +232,36 @@ public class CIDRCalculator extends Activity {
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean autocomplete=sp.getBoolean(Preferences.PREFERENCE_AUTOCOMPLETE, true);
 		String input_keyboard=sp.getString(Preferences.PREFERENCE_INPUT_KEYBOARD,
-				Preferences.PREFERENCE_INPUT_KEYBOARD_DEFAULT);
+				getString(R.string.custom_hex));
 
 		AutoCompleteTextView ipField = (AutoCompleteTextView) findViewById(ipaddress);
-		if (autocomplete) {
-			ipField.setThreshold(3);
-		}else
-		{
-			// fake turning it off by making the threshold out of reach
-			ipField.setThreshold(999);
-		}
 
-		if (input_keyboard.contentEquals(Preferences.PREFERENCE_INPUT_KEYBOARD_DEFAULT)) {
-			ipField.setInputType(InputType.TYPE_CLASS_TEXT);
+		if (input_keyboard.contentEquals(getString(R.string.text))) {
+            ipField.setInputType(InputType.TYPE_CLASS_TEXT);
+            if (mCustomKeyboard.getEnabled()) {
+                mCustomKeyboard.setEnabled(false);
+                outerLayout.removeView(keyboardView);
+            }
+        } else if (input_keyboard.contentEquals(getString(R.string.custom_hex))) {
+            if (!mCustomKeyboard.getEnabled()) {
+                mCustomKeyboard.setEnabled(true);
+                outerLayout.addView(keyboardView);
+            }
 		} else {
 			ipField.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_CLASS_TEXT);
+            if (mCustomKeyboard.getEnabled()) {
+                mCustomKeyboard.setEnabled(false);
+                outerLayout.removeView(keyboardView);
+            }
 		}
+
+        if (autocomplete && !mCustomKeyboard.getEnabled()) {
+            ipField.setThreshold(3);
+        }else
+        {
+            // fake turning it off by making the threshold out of reach
+            ipField.setThreshold(999);
+        }
     }
     
     @Override
