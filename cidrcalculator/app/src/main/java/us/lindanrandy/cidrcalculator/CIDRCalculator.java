@@ -486,6 +486,7 @@ public class CIDRCalculator extends Activity {
     	TextView msgIPBinaryHost = (TextView)findViewById(ip_binary_host);
     	TextView msgIPBinaryNetmask = (TextView)findViewById(ip_binary_netmask);
         Spinner bitlength_spinner = (Spinner)findViewById(bitlength);
+        Spinner subnetmask_spinner = (Spinner)findViewById(subnetmask);
 
         CharSequence ipAddressText = msgIPAddress.getText();
         if (ipAddressText==null) {
@@ -559,6 +560,14 @@ public class CIDRCalculator extends Activity {
         {
         	msgAddressRange.startAnimation(anim);
         	updateHistory(CurrentIP, CurrentBits);
+            String subnetmask = (String)subnetmask_spinner.getSelectedItem();
+
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+            boolean notification=sp.getBoolean(Preferences.PREFERENCE_NOTIFICATION, false);
+
+            if (notification) {
+                NotifySubnet.SendNotify(this, CurrentIP, CurrentBits, subnetmask);
+            }
         }
         
         return true;

@@ -47,5 +47,11 @@
                 android:dialogTitle="@string/pref_dialog_title_input_keyboard"
             	android:defaultValue="@string/custom_hex" />
 
+        <CheckBoxPreference
+            android:title="@string/pref_title_notification"
+            android:summary="@string/pref_summary_notification"
+            android:key="notification"
+            android:defaultValue="false"/>
+
     </PreferenceCategory>
 </PreferenceScreen>

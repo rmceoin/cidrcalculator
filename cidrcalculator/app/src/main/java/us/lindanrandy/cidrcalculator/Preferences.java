@@ -31,6 +31,7 @@ public class Preferences extends PreferenceActivity {
     public static final String PREFERENCE_CURRENTIPv6 = "CurrentIPv6";
     public static final String PREFERENCE_CURRENTBITSIPv6 = "CurrentBitsIPv6";
     public static final String PREFERENCE_INPUT_KEYBOARD = "input_keyboard";
+    public static final String PREFERENCE_NOTIFICATION = "notification";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
