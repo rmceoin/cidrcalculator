@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+dependencies {
+    compile "com.android.support:support-v4:20.0.+"
+}
+
 android {
     compileSdkVersion 19
     buildToolsVersion "20.0.0"
