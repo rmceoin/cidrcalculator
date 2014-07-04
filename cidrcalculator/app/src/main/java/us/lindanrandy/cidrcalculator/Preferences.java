@@ -18,9 +18,11 @@ package us.lindanrandy.cidrcalculator;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 
 public class Preferences extends PreferenceActivity {
 
@@ -29,13 +31,10 @@ public class Preferences extends PreferenceActivity {
     public static final String PREFERENCE_CURRENTIPv6 = "CurrentIPv6";
     public static final String PREFERENCE_CURRENTBITSIPv6 = "CurrentBitsIPv6";
     public static final String PREFERENCE_INPUT_KEYBOARD = "input_keyboard";
-    public static final String PREFERENCE_INPUT_KEYBOARD_DEFAULT = "Text";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Load the preferences from an XML resource
-//        addPreferencesFromResource(R.xml.preferences);
 
         // Display the fragment as the main content.
         FragmentManager mFragmentManager = getFragmentManager();
@@ -53,7 +52,22 @@ public class Preferences extends PreferenceActivity {
 
             addPreferencesFromResource(R.xml.preferences);
         }
-    }
 
+        @Override
+        public void onResume() {
+            super.onResume();
+
+            SharedPreferences sp = getPreferenceManager().getSharedPreferences();
+            String input_keyboard=sp.getString(Preferences.PREFERENCE_INPUT_KEYBOARD,
+                    getString(R.string.custom_hex));
+
+            if (input_keyboard.contentEquals(getString(R.string.custom_hex))) {
+                // disable autocomplete choice if custom hex keyboard is in use
+                getPreferenceScreen().findPreference(PREFERENCE_AUTOCOMPLETE).setEnabled(false);
+            } else {
+                getPreferenceScreen().findPreference(PREFERENCE_AUTOCOMPLETE).setEnabled(true);
+            }
+        }
+    }
 
 }
