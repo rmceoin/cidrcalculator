@@ -79,4 +79,7 @@
 	<string name="pref_dialog_title_input_keyboard">Input Keyboard</string>
     <string name="binary_all_zeros" translatable="false">00000000.00000000.00000000.00000000</string>
     <string name="slash" translatable="false">/</string>
+    <string name="custom_hex">Custom Hex</string>
+    <string name="number">Number</string>
+    <string name="text">Text</string>
 </resources>

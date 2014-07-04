@@ -51,6 +51,7 @@ class CustomKeyboard {
 //    private static final String TAG = CustomKeyboard.class.getSimpleName();
 //    private static final boolean debug = true;
 
+    private boolean enabled = true;
     /**
      * A link to the KeyboardView that is used to render this CustomKeyboard.
      */
@@ -186,7 +187,7 @@ class CustomKeyboard {
     }
 
     /**
-     * Register <var>EditText<var> with resource id <var>resid</var> (on the hosting activity) for using this custom keyboard.
+     * Register <var>EditText</var> with resource id <var>resid</var> (on the hosting activity) for using this custom keyboard.
      *
      * @param resid The resource id of the EditText that registers to the custom keyboard.
      */
@@ -206,7 +207,7 @@ class CustomKeyboard {
             // NOTE By setting the on click listener, we can show the custom keyboard again, by tapping on an edit box that already had focus (but that had the keyboard hidden).
             @Override
             public void onClick(View v) {
-                showCustomKeyboard(v);
+                if (enabled) showCustomKeyboard(v);
             }
         });
         // Disable standard keyboard hard way
@@ -215,21 +216,25 @@ class CustomKeyboard {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 EditText edittext = (EditText) v;
-                int inType = edittext.getInputType();       // Backup the input type
-                edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
-                edittext.onTouchEvent(event);               // Call native handler
-                edittext.setInputType(inType);              // Restore input type
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        Layout layout = ((EditText) v).getLayout();
-                        float x = event.getX() + v.getScrollX();
-                        int offset = layout.getOffsetForHorizontal(0, x);
-                        if (offset > 0)
-                            if (x > layout.getLineMax(0)) {
-                                ((EditText) v).setSelection(offset);    // touch was at end of text
-                            } else
-                                ((EditText) v).setSelection(offset - 1);
-                        break;
+                if (enabled) {
+                    int inType = edittext.getInputType();       // Backup the input type
+                    edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
+                    edittext.onTouchEvent(event);               // Call native handler
+                    edittext.setInputType(inType);              // Restore input type
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            Layout layout = ((EditText) v).getLayout();
+                            float x = event.getX() + v.getScrollX();
+                            int offset = layout.getOffsetForHorizontal(0, x);
+                            if (offset > 0)
+                                if (x > layout.getLineMax(0)) {
+                                    ((EditText) v).setSelection(offset);    // touch was at end of text
+                                } else
+                                    ((EditText) v).setSelection(offset - 1);
+                            break;
+                    }
+                } else {
+                    edittext.onTouchEvent(event);               // Call native handler
                 }
                 return true; // Consume touch event
             }
@@ -238,6 +243,13 @@ class CustomKeyboard {
         edittext.setInputType(edittext.getInputType() | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
     }
 
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public boolean getEnabled() {
+        return enabled;
+    }
 }
 
 

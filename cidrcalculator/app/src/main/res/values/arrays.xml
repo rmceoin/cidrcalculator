@@ -231,7 +231,8 @@
     </string-array>
 
     <string-array name="pref_array_input_keyboard">
-        <item>Number</item>
-        <item>Text</item>
+        <item>@string/custom_hex</item>
+        <item>@string/number</item>
+        <item>@string/text</item>
     </string-array>
 </resources>
