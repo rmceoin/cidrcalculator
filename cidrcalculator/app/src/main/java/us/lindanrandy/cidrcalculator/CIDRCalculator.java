@@ -530,10 +530,15 @@ public class CIDRCalculator extends Activity {
         int netmask=(~ip32bitmask);
         String binaryNetmask = Converter.convertIPIntDec2StringBinary(netmask);
 
+        CurrentIP=ip;
+        CurrentBits=bitlength;
+
         if (updateView)
         {
-	        msgAddressRange.setText(ipFirst + " - " + ipLast);
-	        msgMaximumAddresses.setText(String.format("%d", maximumAddresses));
+            String addressRange = ipFirst + " - " + ipLast;
+	        msgAddressRange.setText(addressRange);
+            String maximumAddressesString = String.format("%d", maximumAddresses);
+	        msgMaximumAddresses.setText(maximumAddressesString);
 	        msgWildcard.setText(wildcard);
 	        
 	        int networkHostCutoff;
@@ -551,13 +556,7 @@ public class CIDRCalculator extends Activity {
 	        msgIPBinaryNetwork.setText(binary_network);
 	        msgIPBinaryHost.setText(binary_host);
 	        msgIPBinaryNetmask.setText(binaryNetmask);
-        }
 
-        CurrentIP=ip;
-        CurrentBits=bitlength;
-
-        if (updateView)
-        {
         	msgAddressRange.startAnimation(anim);
         	updateHistory(CurrentIP, CurrentBits);
             String subnetmask = (String)subnetmask_spinner.getSelectedItem();
@@ -566,10 +565,11 @@ public class CIDRCalculator extends Activity {
             boolean notification=sp.getBoolean(Preferences.PREFERENCE_NOTIFICATION, false);
 
             if (notification) {
-                NotifySubnet.SendNotify(this, CurrentIP, CurrentBits, subnetmask);
+                NotifySubnet.SendNotify(this, CurrentIP, CurrentBits, subnetmask, addressRange,
+                        maximumAddressesString, wildcard);
             }
         }
-        
+
         return true;
     }
     
