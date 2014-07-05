@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 
- * $Id: strings.xml 36 2012-07-07 23:54:43Z rmceoin@gmail.com $
  *
  * Copyright (C) 2008-2014 Randy McEoin
  *
@@ -83,5 +82,5 @@
     <string name="number">Number</string>
     <string name="text">Text</string>
     <string name="pref_title_notification">Notification</string>
-    <string name="pref_summary_notification">Create a notification for the calculation.</string>
+    <string name="pref_summary_notification">Create a notification for the calculation.  Useful with wearables.</string>
 </resources>

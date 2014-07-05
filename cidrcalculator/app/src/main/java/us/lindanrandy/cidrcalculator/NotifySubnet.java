@@ -24,7 +24,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.app.NotificationCompat.WearableExtender;
 
 /**
  * Helper class for handling notifications.
@@ -32,12 +31,11 @@ import android.support.v4.app.NotificationCompat.WearableExtender;
 public class NotifySubnet {
 
     /**
-     *
      * Place a notification in the Notification area.  This is targeted for Android Wearables.
      */
     public static void SendNotify(Context context, String address, int bits, String subnetmask,
                                   String addressRange, String maximumAddresses, String wildcard) {
-        int notificationId = 001;
+        int notificationId = 1;
 
         // Build intent for notification content
         Intent viewIntent = new Intent(context, CIDRCalculator.class);
