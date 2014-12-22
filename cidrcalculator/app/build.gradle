@@ -1,17 +1,17 @@
 apply plugin: 'com.android.application'
 
 dependencies {
-    compile "com.android.support:support-v4:20.0.+"
+    compile "com.android.support:support-v4:21.0.3"
 }
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "20.0.0"
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
         applicationId "us.lindanrandy.cidrcalculator"
         minSdkVersion 11
-        targetSdkVersion 19
+        targetSdkVersion 21
     }
 
     signingConfigs {
@@ -25,8 +25,8 @@ android {
 
     buildTypes {
         release {
-            runProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+//            runProguard false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             signingConfig signingConfigs.release
         }
     }
