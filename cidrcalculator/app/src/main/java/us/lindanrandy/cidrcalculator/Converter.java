@@ -75,11 +75,11 @@ public class Converter extends Activity {
         layout.addView(keyboard);
 
         mCustomKeyboard= new CustomKeyboard(this, keyboardview, R.xml.hexkbd );
-        mCustomKeyboard.registerEditText(R.id.ipaddress);
+        mCustomKeyboard.registerEditText(R.id.converter_ipaddress);
         mCustomKeyboard.registerEditText(R.id.ipbinary);
         mCustomKeyboard.registerEditText(R.id.iphex);
 
-        ipAddress = (EditText) findViewById(R.id.ipaddress);
+        ipAddress = (EditText) findViewById(R.id.converter_ipaddress);
         ipBinary = (EditText) findViewById(R.id.ipbinary);
         ipHex = (EditText) findViewById(R.id.iphex);
 
