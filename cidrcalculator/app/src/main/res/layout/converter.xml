@@ -40,7 +40,7 @@
                 android:text="@string/ip_decimal" />
 
             <EditText
-                android:id="@+id/ipaddress"
+                android:id="@+id/converter_ipaddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/label_ipdecimal"
@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/label_ipdecimal"
-                android:layout_toRightOf="@id/ipaddress"
+                android:layout_toRightOf="@id/converter_ipaddress"
                 android:text="@string/convert_to_binaryhex" />
 
             <TextView
