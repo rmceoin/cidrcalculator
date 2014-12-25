@@ -47,7 +47,7 @@
                 android:digits="0123456789."
                 android:ems="9"
                 android:hint="@string/put_ip_here"
-                android:inputType="numberDecimal"
+                android:inputType="text"
                 android:maxLength="15"
                 android:scrollHorizontally="true"
                 android:singleLine="true" />
