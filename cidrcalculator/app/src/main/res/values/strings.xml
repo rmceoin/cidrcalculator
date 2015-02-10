@@ -28,7 +28,7 @@
 	<string name="maximum_addresses">Maximum addresses</string>
 	<string name="wildcard">Wildcard</string>
 	<string name="about_dialog_ok">OK</string>
-	<string name="about_dialog_message">CIDR Calculator\nRandy McEoin\nCopyright 2014\nVersion %s</string>
+	<string name="about_dialog_message">CIDR Calculator\nRandy McEoin\nCopyright 2015\nVersion %s</string>
 	<string name="about_dialog_title">About</string>
 	<string name="history">History</string>
 	<string name="preferences">Preferences</string>

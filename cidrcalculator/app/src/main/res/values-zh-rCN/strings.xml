@@ -31,7 +31,7 @@
 	<string name="maximum_addresses">最大地址</string>
 	<string name="wildcard">通配符</string>
 	<string name="about_dialog_ok">确认</string>
-	<string name="about_dialog_message">CIDR Calculator\nRandy McEoin\nCopyright 2014\n版本 %s</string>
+	<string name="about_dialog_message">CIDR Calculator\nRandy McEoin\nCopyright 2015\n版本 %s</string>
 	<string name="about_dialog_title">关于</string>
 	<string name="history">历史</string>
 	<string name="preferences">首选项</string>
