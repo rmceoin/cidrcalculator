@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+ *
+ * Copyright (C) 2008-2014 Randy McEoin
+ *
+ * Licencjonowany na licencji Apache, wersja 2.0 („Licencja”);
+ * nie możesz używać tego pliku, chyba że jest to zgodne z Licencją.
+ * Możesz uzyskać kopię licencji pod adresem
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * O ile nie jest to wymagane przez obowiązujące prawo lub pisemnie uzgodnione, oprogramowanie
+ * dystrybuowane na podstawie Licencji jest dystrybuowane na zasadzie „TAK JAK JEST”,
+ * BEZ ŻADNYCH GWARANCJI LUB WARUNKÓW, wyraźnych lub dorozumianych.
+ * Zobacz licencję, aby zapoznać się z uprawnieniami dotyczącymi konkretnego języka i
+ * ograniczeniami wynikającymi z Licencji.
+ -->
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
+
+	<string name="app_name">CIDR Calculator</string>
+	<string name="calculate">Oblicz</string>
+	<string name="reset">Wyczyść</string>
+	<string name="err_bad_ip">Błędny format IP</string>
+	<string name="err_ip_range">IP poza zakresem</string>
+	<string name="address_range">Zakres adresów</string>
+	<string name="maximum_addresses">Maksymalna liczba adresów</string>
+	<string name="wildcard">Maska odwrócona</string>
+	<string name="about_dialog_ok">OK</string>
+	<string name="about_dialog_message">CIDR Calculator\nRandy McEoin\nCopyright 2015\nVersion %s</string>
+	<string name="about_dialog_title">O aplikacji</string>
+	<string name="history">Historia</string>
+	<string name="preferences">Preferencje</string>
+	<string name="pref_title_history_entries">Historia wpisów</string>
+	<string name="pref_summary_history_entries">Ile wpisów zachować w historii.</string>
+	<string name="pref_dialog_title_history_entries">Historia wpisów</string>
+	<string name="pref_title_autocomplete">Autouzupełnienie</string>
+	<string name="pref_summary_autocomplete">Użyj historii, aby automatycznie uzupełnić adres IP.</string>
+	<string name="delete_all">Usuń wszystko</string>
+	<string name="delete">Usuń</string>
+	<string name="yes">Tak</string>
+	<string name="no">Nie</string>
+	<string name="dialog_delete_history_msg">Czy na pewno chcesz usunąć całą historię?</string>
+	<string name="converter">Konwerter</string>
+	<string name="ip_decimal">IP Dziesiętny</string>
+	<string name="ip_binary">IP Binarny</string>
+	<string name="ip_hex">IP Szesnastkowy</string>
+	<string name="ip_binary_netmask">IP Binarna Maska Sieci</string>
+	<string name="convert_to_binaryhex">Konwertuj na Binarny/Szesnastkowy</string>
+	<string name="convert_to_decimalhex">Konwertuj na Dziesiętny/Szesnastkowy</string>
+	<string name="convert_to_decimalbinary">Konwertuj na Dziesiętny/Binarny</string>
+	<string name="put_ip_here">Tutaj wpisz IP</string>
+	<string name="return_ip">Zwróć do adresu IP</string>
+	<string name="ip_address">Adres IPv4</string>
+	<string name="ipv6_address">Adres IPv6</string>
+	<string name="ipv6">IPv6</string>
+	<string name="info">Informacje</string>
+	<string name="any_local">AnyLocal</string>
+	<string name="link_local">LinkLocal</string>
+	<string name="loopback">Loopback</string>
+	<string name="mcglobal">Multicast Global</string>
+	<string name="mclink_local">Multicast LinkLocal</string>
+	<string name="mcnode_local">Multicast NodeLocal</string>
+	<string name="mcorg_local">Multicast OrgLocal</string>
+	<string name="mcsite_local">Multicast SiteLocal</string>
+	<string name="multicast">Multicast</string>
+	<string name="allnodes">Wszystkie węzły</string>
+	<string name="allrouters">Wszystkie routery</string>
+	<string name="allriprouters">Wszystkie routery RIP</string>
+	<string name="allntpservers">Wszystkie serwery NTP</string>
+	<string name="alldhcpservers">Wszystkie serwery DHCP</string>
+	
+	<string name="mappedipv4">Mapowany IPv4</string>
+	
+	<string name="pref_title_input_keyboard" tools:ignore="MissingTranslation">Wprowadzanie za pomocą klawiatury</string>
+	<string name="pref_summary_input_keyboard">Typ klawiatury używanej do wprowadzania danych.</string>
+	<string name="pref_dialog_title_input_keyboard">Wprowadzanie za pomocą klawiatury</string>
+    <string name="binary_all_zeros" translatable="false">00000000.00000000.00000000.00000000</string>
+    <string name="slash" translatable="false">/</string>
+    <string name="custom_hex">Niestandardowy Szesnastkowy</string>
+    <string name="number">Numer</string>
+    <string name="text">Tekst</string>
+    <string name="pref_title_notification">Powiadomienie</string>
+    <string name="pref_summary_notification">Utwórz powiadomienie do obliczeń. Przydatny do noszenia.</string>
+</resources>
